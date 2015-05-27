@@ -1,2 +1,2 @@
-# Gulama-Url-Shortner-
+# PithyURL
 caso di studio 
