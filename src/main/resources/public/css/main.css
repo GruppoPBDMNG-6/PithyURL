@@ -1,0 +1,57 @@
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+.alert {
+  width:650px;
+  height:120px;
+  resize: none; 
+  font-size: 230%;
+  text-align: center;  
+}
+
+#visitsPerDay, #visitsPerCountry {
+   width: 100%;
+   text-align:center;
+}
+
+canvas {
+   display: inline;
+}
+
+#te1, #te2 {
+  width:650px;
+  height:120px;
+  resize: none;
+}
+
+.tab-content{
+  padding-top: 30px;
+  line-height: 70px;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+}
