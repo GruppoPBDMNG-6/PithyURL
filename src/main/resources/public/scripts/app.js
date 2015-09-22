@@ -39,7 +39,6 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 			$rootScope.done = true;
 		}).error(function(data, status) {
 			console.log('Error ' + data)
-
 			$rootScope.error = true;
 		})
 	}
@@ -54,14 +53,11 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 			$rootScope.done = true;
 		}).error(function(data, status) {
 			console.log('Error ' + data)
-
 			$rootScope.error = true;
-		})
+			if(status == 500){
+			$scope.textError = "Parola non accettabile";
+			}})
 	}
-
-});
-
-app.controller('PreviewCtrl', function ($scope, $http, $location) {
 
 });
 

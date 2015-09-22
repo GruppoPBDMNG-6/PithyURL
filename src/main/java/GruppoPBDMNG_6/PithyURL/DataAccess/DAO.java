@@ -6,7 +6,9 @@ import GruppoPBDMNG_6.PithyURL.Entities.LsUrlClient;
 import GruppoPBDMNG_6.PithyURL.Entities.LsUrlServer;
 import GruppoPBDMNG_6.PithyURL.Exceptions.BadURLFormatException;
 import GruppoPBDMNG_6.PithyURL.Exceptions.ShortUrlNotFoundException;
+import GruppoPBDMNG_6.PithyURL.Exceptions.UndesirableWordException;
 import GruppoPBDMNG_6.PithyURL.Util.LongUrlValidator;
+import GruppoPBDMNG_6.PithyURL.Util.Check.WordChecker;
 
 import com.google.gson.Gson;
 import com.mongodb.*;
@@ -14,7 +16,8 @@ import com.mongodb.util.JSON;
  
 public class DAO {
  
-    private final DB db;
+    @SuppressWarnings("unused")
+	private final DB db;
     private final DBCollection collection;
  
     public DAO(DB db) {
@@ -24,23 +27,29 @@ public class DAO {
  
     //funzioni di scrittura - lettura db
     
-    public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException{
+    public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException{
         LsUrlClient url = new Gson().fromJson(body, LsUrlClient.class);
         String shortUrl = url.getShortUrl();
-        System.out.println("W - Long url : " + url.getLongUrl());
-        LongUrlValidator validator = new LongUrlValidator(url.getLongUrl());
-        
-        
-        if(validator.validate()){
-        	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
-            System.out.println("W - Short url : " + url.getShortUrl());
-        	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
-        			.append("tot_visits", 0).append("create_date", new Date()));
-        } else {
-            System.out.println("W - Long url non valido");
-        	throw new BadURLFormatException(url.getLongUrl() + "non valido");
-        }
-    
+        if(url.isCustom()){
+	        	WordChecker wc = new WordChecker();
+	        	if(wc.isUndesirable(shortUrl)){
+						throw new UndesirableWordException();
+	        	}
+	        }
+	        System.out.println("W - Long url : " + url.getLongUrl());
+	        LongUrlValidator validator = new LongUrlValidator(url.getLongUrl());
+	        
+	        
+	        if(validator.validate()){
+	        	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
+	            System.out.println("W - Short url : " + url.getShortUrl());
+	        	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
+	        			.append("tot_visits", 0).append("create_date", new Date()));
+	        } else {
+	            System.out.println("W - Long url non valido");
+	        	throw new BadURLFormatException(url.getLongUrl() + "non valido");
+	        }
+		       
         return url;
     }
     

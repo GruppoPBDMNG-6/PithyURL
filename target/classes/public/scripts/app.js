@@ -1,13 +1,13 @@
 var app = angular.module('pithyurl', [ 'ngCookies', 'ngResource', 'ngSanitize',
 		'ngRoute' ]);
 
-app.config(function($routeProvider) {
-	$routeProvider.when('/', {
-		templateUrl : 'views/main.html',
-		controller : 'CreateCtrl'
-	}).when('/stats', {
-		templateUrl : 'views/stats.html',
-		controller : 'StatsCtrl'
+app.config(function ($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'views/main.html',
+        controller: 'CreateCtrl'
+    }).when('/stats', {
+        templateUrl: 'views/stats.html',
+        controller: 'StatsCtrl'
     }).when('/preview', {
         templateUrl: 'views/preview.html',
         controller: 'PreviewCtrl'
@@ -39,7 +39,6 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 			$rootScope.done = true;
 		}).error(function(data, status) {
 			console.log('Error ' + data)
-
 			$rootScope.error = true;
 		})
 	}
@@ -54,29 +53,29 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 			$rootScope.done = true;
 		}).error(function(data, status) {
 			console.log('Error ' + data)
-
 			$rootScope.error = true;
-		})
+			if(status == 500){
+			$scope.textError = "Parola non accettabile";
+			}})
 	}
-
-});
-
-app.controller('PreviewCtrl', function ($scope, $http, $location) {
 
 });
 
 app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 	$rootScope.stats = true;
-	/*
-	//Non funge
-	//
-	$scope.inspectUrl = function(urlforstat) {
-		if (urlforstat == "" || urlforstat == null) {
+	$scope.lsurlForStats = {};
+	$scope.lsurl = {};
+	
+	$scope.inspectUrl = function() {
+		console.log($scope.lsurlForStats.short);
+		if ($scope.lsurlForStats.short == "" || $scope.lsurlForStats.short == null) {
 			return; //Campo non avvalorato
 		} else {
-			$http.post('/api/v1/lsurl').success(function(data) {
-				$scope.longUrl = data.long;
-				$scope.shortUrl = data.short;
+			$http.post('/api/v1/inspectUrl', $scope.lsurlForStats).success(function(data) {
+				$scope.lsurl.longUrl = data.long;
+				$scope.lsurl.shortUrl = data.short;
+				$scope.lsurl.totVisits = data.tot_visits;
+				$scope.lsurl.creationDate = data.create_date;
 				
 				$rootScope.stats = true;	
 			}).error(function(data) {
@@ -85,5 +84,5 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 			})
 		}
 	}
-	*/
+	
 });

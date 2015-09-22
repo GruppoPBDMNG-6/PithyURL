@@ -74,7 +74,9 @@
             // get bar chart canvas
             var income = document.getElementById('visitsPerCountry').getContext("2d");
             // draw bar chart
-            new Chart(income).Bar(barData);
+            var myBarChart = new Chart(income).Bar(barData);
+            myBarChart.addData([40, 60], "August");
+            
             
             // get line chart canvas
             var buyers = document.getElementById('visitsPerDay').getContext('2d');

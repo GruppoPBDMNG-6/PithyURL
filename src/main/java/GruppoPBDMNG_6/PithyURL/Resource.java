@@ -3,7 +3,6 @@ package GruppoPBDMNG_6.PithyURL;
 import com.google.gson.Gson;
 
 import GruppoPBDMNG_6.PithyURL.DataAccess.DAO;
-import GruppoPBDMNG_6.PithyURL.DataAccess.ServerResponses;
 import GruppoPBDMNG_6.PithyURL.Entities.*;
 import GruppoPBDMNG_6.PithyURL.Exceptions.*;
 import GruppoPBDMNG_6.PithyURL.Util.JsonTransformer;
@@ -79,11 +78,14 @@ public class Resource {
         post(API_CONTEXT + "/lsurl", "application/json", (request, response) -> {
         	System.out.println("W - Richiesta fatta da : "+ request.ip());
         	LsUrlClient url;
-        	try{
-        		url = db.createNewLsUrl(request.body());
-        	}catch (BadURLFormatException e){
-        		url = null;
-        	}
+        	try {
+					url = db.createNewLsUrl(request.body());
+				} catch (UndesirableWordException | BadURLFormatException e) {
+					System.out.println(e.getMessage());
+					response.status(500);
+					url = null;
+				}
+        	
             System.out.println("");
             return url;
         }, new JsonTransformer());

@@ -42,5 +42,9 @@ public class LsUrlClient {
     	
         return shortUrl;
     }
+
+	public boolean isCustom() {
+		return custom;
+	}
  
 }

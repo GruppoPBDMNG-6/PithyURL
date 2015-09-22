@@ -12,6 +12,15 @@
   text-align: center;  
 }
 
+#visitsPerDay, #visitsPerCountry {
+   width: 100%;
+   text-align:center;
+}
+
+canvas {
+   display: inline;
+}
+
 #te1, #te2 {
   width:650px;
   height:120px;
