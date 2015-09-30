@@ -1,122 +1,137 @@
 <!DOCTYPE html>
 <html ng-app="pithyurl_main">
 <head>
-    <title>Pithy URL</title>
-      <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./css/main.css">
+<title>Pithy URL</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="./css/main.css">
 </head>
 <body ng-controller="CreateCtrl">
-<div class="header">
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="" ng-click="toMain()">
-                    <img alt="Logo" src="">
-                </a>
-            </div>
-            <div class="collapse navbar-collapse" id="js-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="" ng-click="toStats()"><span class="glyphicon glyphicon-stats" ></span> URL Stats</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="header">
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="" ng-click="toMain()"> <img
+						alt="Logo" src="">
+					</a>
+				</div>
+				<div class="collapse navbar-collapse" id="js-navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="" ng-click="toStats()"><span
+								class="glyphicon glyphicon-stats"></span> URL Stats</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<div class="container">
-	  <div ng-show="mainView">
-	    <!-- Nav tabs -->
-	    <ul class="nav nav-pills nav-justified">
-	      <li class="active"><a data-toggle="pill" href="#standard">Standard PithyURL</a></li>
-	      <li><a data-toggle="pill" href="#custom">Custom PithyURL</a></li>
-	    </ul>
-	    
-	    <!-- Tab panes -->
-	    <div class="tab-content">
-	    
-	      <div class="tab-pane active" id="standard" align="center">
-	        <form class="form-horizontal" role="form" ng-submit="createLsUrl()">
-	        
-		        <div class="input-group input-group-lg">
-		          <textarea id="te1" class="form-control" cols="30" rows="10" placeholder="Insert here your long URL." ng-model="lsurl.long"></textarea>
-		        </div>
-		        
-		        <button type="submit" class="btn btn-success btn-lg">
-		          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Make PithyURL!
-		        </button>
-		        
-	        </form>
-	      </div>
-	      
-	     <div class="tab-pane" id="custom" align="center">
-		        <form class="form-horizontal" role="form" ng-submit="createLsUrlCustom()">
-			        <div class="input-group input-group-lg">
-			          <textarea id="te2" class="form-control" cols="30" rows="10" placeholder="Insert here your long URL." ng-model="lsurl.long"></textarea>
-			        </div>
-			        <div class="input-group center">
-			          <span class="input-group-addon">{{"http://"+hostname}}</span>
-			          <input id="in1" type="text" class="form-control" placeholder="your custom text" ng-model="lsurl.short">
-			        </div>
-			        
-			        <button type="submit" class="btn btn-success btn-lg">
-			          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Make a custom PithyURL!
-			        </button>
-		        </form>
-	      </div>
-	    </div>
-	    
-	    	<div id="success" class="alert alert-success fade in" ng-show="done">
-	        <strong>Success!</strong> Here's your PithyURL : {{"http://"+hostname+createdUrl.short}}
-	    	</div>
-	    	  	
-	    	<div id="error" class="alert center alert-danger fade in" ng-show="error">           
-	        <strong>Errore!</strong>
-	        <br />
-	        {{textError}}    
-	 		</div>
-	 		
-	  </div> 
-	  
-	  <div ng-controller="StatsCtrl" ng-hide="mainView">
-<form class="form-horizontal" role="form" ng-submit="inspectUrl()">
-  <div class="row">
-    <div class="input-group input-group-lg">
-    	<span class="input-group-addon">{{"http://"+hostname}}</span>
-      <input type="text" ng-model="lsurlForStats.short" class="form-control" placeholder="Insert your short URL here.">
-      <span class="input-group-btn">
-        <button class="btn btn-default btn-lg" type="submit">
-          <span class="glyphicon glyphicon-align-right" aria-hidden="true"></span> Inspect!
-        </button>
-      </span>
-    </div>
-  </div>
-</form>
-  <br>
-  
-  <div id="stats" ng-show="stats">
-  	<table class="table table-striped">
-  <tr>
-    <th data-field="shortURL">Short URL:</th>
-    <td>{{lsurl.shortUrl}}</td>
-  </tr>
-  <tr>
-    <th data-field="longURL">Long URL:</th>
-    <td>{{lsurl.longUrl}}</td>
-  </tr>
-  <tr>
-    <th data-field="creationDate">Created on:</th>
-    <td>{{lsurl.creationDate}}</td>
-  </tr>
-  <tr>
-    <th data-field="totVisits">Total visits:</th>
-    <td>{{lsurl.totVisits}}</td>
-  </tr>
-</table>
-<!-- 
+	<div class="container">
+		<div ng-show="mainView">
+			<!-- Nav tabs -->
+			<ul class="nav nav-pills nav-justified">
+				<li class="active"><a data-toggle="pill" href="#standard">Standard
+						PithyURL</a></li>
+				<li><a data-toggle="pill" href="#custom">Custom PithyURL</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+
+				<div class="tab-pane active" id="standard" align="center">
+					<form class="form-horizontal" role="form" ng-submit="createLsUrl()">
+
+						<div class="input-group input-group-lg">
+							<textarea id="te1" class="form-control" cols="30" rows="10"
+								placeholder="Insert here your long URL." ng-model="lsurl.long"></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-success btn-lg">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							Make PithyURL!
+						</button>
+
+					</form>
+				</div>
+
+				<div class="tab-pane" id="custom" align="center">
+					<form class="form-horizontal" role="form"
+						ng-submit="createLsUrlCustom()">
+						<div class="input-group input-group-lg">
+							<textarea id="te2" class="form-control" cols="30" rows="10"
+								placeholder="Insert here your long URL." ng-model="lsurl.long"></textarea>
+						</div>
+						<div class="input-group center">
+							<span class="input-group-addon">{{"http://"+hostname}}</span> <input
+								id="in1" type="text" class="form-control"
+								placeholder="your custom text" ng-model="lsurl.short">
+						</div>
+
+						<button type="submit" class="btn btn-success btn-lg">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							Make a custom PithyURL!
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<div id="success" class="alert center alert-success fade in" ng-show="done">
+				<strong>Success!</strong> Here's your PithyURL :
+				{{"http://"+hostname+createdUrl.short}}
+			</div>
+
+			<div id="error" class="alert center alert-danger fade in"
+				ng-show="error">
+				<strong>Errore!</strong> <br /> {{textError}}
+			</div>
+
+		</div>
+
+
+
+		<div ng-controller="StatsCtrl" ng-hide="mainView">
+			<form class="form-horizontal" role="form" ng-submit="inspectUrl()">
+				<div class="row">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">{{"http://"+hostname}}</span> <input
+							type="text" ng-model="lsurlForStats.short" class="form-control"
+							placeholder="Insert your short URL here."> <span
+							class="input-group-btn">
+							<button class="btn btn-default btn-lg" type="submit">
+								<span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+								Inspect!
+							</button>
+						</span>
+					</div>
+				</div>
+			</form>
+			<br>
+
+			<div id="stats" ng-show="stats">
+				<table class="table table-striped">
+					<tr>
+						<th data-field="shortURL">Short URL:</th>
+						<td>{{lsurl.shortUrl}}</td>
+					</tr>
+					<tr>
+						<th data-field="longURL">Long URL:</th>
+						<td>{{lsurl.longUrl}}</td>
+					</tr>
+					<tr>
+						<th data-field="creationDate">Created on:</th>
+						<td>{{lsurl.creationDate}}</td>
+					</tr>
+					<tr>
+						<th data-field="totVisits">Total visits:</th>
+						<td>{{lsurl.totVisits}}</td>
+					</tr>
+				</table>
+				<!-- 
    <h5><strong>Visits per day:</strong></h5>
    <canvas id="visitsPerDay"></canvas>
    
@@ -161,25 +176,28 @@
             new Chart(buyers).Line(buyerData);
       </script>      
        -->
-  </div>
+			</div>
+			<div id="error" class="alert center alert-danger fade in"
+				ng-show="errorS">
+				<strong>Errore!</strong> <br /> {{textError}}
+			</div>
+		</div>
+	</div>
 
-</div>
-</div>
-</div>
-		
-    
 
-        
 
-<script src="./js/jquery.js"></script>
-<script src="./js/angular.js"></script>
-<script src="./js/angular-route.js"></script>
-<script src="./js/angular-cookies.js"></script>
-<script src="./js/angular-sanitize.js"></script>
-<script src="./js/angular-resource.js"></script>
-<script src="./js/Chart.min.js"></script>
-<script src="./scripts/app.js"></script>
-<script src="./scripts/controllers/main.js"></script>
-<script src="./scripts/controllers/stats.js"></script>
+
+
+
+	<script src="./js/jquery.js"></script>
+	<script src="./js/angular.js"></script>
+	<script src="./js/angular-route.js"></script>
+	<script src="./js/angular-cookies.js"></script>
+	<script src="./js/angular-sanitize.js"></script>
+	<script src="./js/angular-resource.js"></script>
+	<script src="./js/Chart.min.js"></script>
+	<script src="./scripts/app.js"></script>
+	<script src="./scripts/controllers/main.js"></script>
+	<script src="./scripts/controllers/stats.js"></script>
 </body>
 </html>
