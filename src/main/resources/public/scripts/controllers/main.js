@@ -8,6 +8,7 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
     
     $rootScope.done = false;
     $rootScope.error = false;
+    $rootScope.errorS = false;
 
 	$scope.createLsUrl = function() {
 		console.log("ciao");

@@ -1,63 +1,43 @@
 <!DOCTYPE html>
 <html ng-app="pithyurl_main">
-
 <head>
-
 <title>Pithy URL</title>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	
-	  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
-  
-
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="./css/main.css">
-
 </head>
-
 <body ng-controller="CreateCtrl">
-
 	<div class="header">
 		<div class="navbar navbar-default" role="navigation">
-
 			<div class="container">
-
 				<div class="navbar-header">
 					<a class="navbar-brand" href="" ng-click="toMain()"> <img
 						alt="Logo" src="">
 					</a>
 				</div>
-
 				<div class="collapse navbar-collapse" id="js-navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="" ng-click="toStats()"><span
 								class="glyphicon glyphicon-stats"></span> URL Stats</a></li>
 					</ul>
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 
 	<div class="container">
-
 		<div ng-show="mainView">
-
 			<!-- Nav tabs -->
 			<ul class="nav nav-pills nav-justified">
-				<li class="active"><a data-toggle="pill" href="#standard"
-					ng-click="resetMsgs()">Standard PithyURL</a></li>
-				<li><a data-toggle="pill" href="#custom" ng-click="resetMsgs()">Custom
+				<li class="active"><a data-toggle="pill" href="#standard">Standard
 						PithyURL</a></li>
+				<li><a data-toggle="pill" href="#custom">Custom PithyURL</a></li>
 			</ul>
 
 			<!-- Tab panes -->
@@ -82,12 +62,10 @@
 				<div class="tab-pane" id="custom" align="center">
 					<form class="form-horizontal" role="form"
 						ng-submit="createLsUrlCustom()">
-
 						<div class="input-group input-group-lg">
 							<textarea id="te2" class="form-control" cols="30" rows="10"
 								placeholder="Insert here your long URL." ng-model="lsurl.long"></textarea>
 						</div>
-
 						<div class="input-group center">
 							<span class="input-group-addon">{{"http://"+hostname}}</span> <input
 								id="in1" type="text" class="form-control"
@@ -98,31 +76,28 @@
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 							Make a custom PithyURL!
 						</button>
-
 					</form>
 				</div>
-
 			</div>
 
-			<div id="success" class="alert alert-success fade in" ng-show="done"
-				ng-cloak>
+			<div id="success" class="alert center alert-success fade in" ng-show="done">
 				<strong>Success!</strong> Here's your PithyURL :
 				{{"http://"+hostname+createdUrl.short}}
 			</div>
 
 			<div id="error" class="alert center alert-danger fade in"
-				ng-show="error" ng-cloak>
+				ng-show="error">
 				<strong>Errore!</strong> <br /> {{textError}}
 			</div>
 
 		</div>
 
-		<div ng-controller="StatsCtrl" ng-hide="mainView" ng-cloak>
-			<form class="form-horizontal" role="form" ng-submit="inspectUrl()">
 
+
+		<div ng-controller="StatsCtrl" ng-hide="mainView">
+			<form class="form-horizontal" role="form" ng-submit="inspectUrl()">
 				<div class="row">
 					<div class="input-group input-group-lg">
-
 						<span class="input-group-addon">{{"http://"+hostname}}</span> <input
 							type="text" ng-model="lsurlForStats.short" class="form-control"
 							placeholder="Insert your short URL here."> <span
@@ -132,10 +107,8 @@
 								Inspect!
 							</button>
 						</span>
-
 					</div>
 				</div>
-
 			</form>
 			<br>
 
@@ -157,77 +130,74 @@
 						<th data-field="totVisits">Total visits:</th>
 						<td>{{lsurl.totVisits}}</td>
 					</tr>
-					<tr>
-						<th data-field="uniqueVisits">Unique visits:</th>
-						<td>{{lsurl.uniqueVisits}}</td>
-					</tr>
 				</table>
-				
 				<!-- 
-				   <h5><strong>Visits per day:</strong></h5>
-				   <canvas id="visitsPerDay"></canvas>
-				   
-				   <h5><strong>Visits per country:</strong></h5>
-				   <canvas id="visitsPerCountry"></canvas>
-				   
-				    <script>
-				            var buyerData = {
-				                labels : ["January","February","March","April","May","June"],
-				                datasets : [
-				                {
-				                    fillColor : "rgba(172,194,132,0.4)",
-				                    strokeColor : "#ACC26D",
-				                    pointColor : "#fff",
-				                    pointStrokeColor : "#9DB86D",
-				                    data : [203,156,99,251,305,247]
-				                }
-				            ]
-				            }
-				            
-				            var barData = {
-				                    labels : ["January","February","March","April","May","June"],
-				                    datasets : [
-				                        {
-				                            fillColor : "#48A497",
-				                            strokeColor : "#48A4D1",
-				                            data : [456,479,324,569,702,600]
-				                        }                  
-				                    ]
-				                }
-				               
-				            // get bar chart canvas
-				            var income = document.getElementById('visitsPerCountry').getContext("2d");
-				            // draw bar chart
-				            var myBarChart = new Chart(income).Bar(barData);
-				            myBarChart.addData([40, 60], "August");
-				            
-				            
-				            // get line chart canvas
-				            var buyers = document.getElementById('visitsPerDay').getContext('2d');
-				            
-				            new Chart(buyers).Line(buyerData);
-				      </script>      
-				       -->
+   <h5><strong>Visits per day:</strong></h5>
+   <canvas id="visitsPerDay"></canvas>
+   
+   <h5><strong>Visits per country:</strong></h5>
+   <canvas id="visitsPerCountry"></canvas>
+   
+    <script>
+            var buyerData = {
+                labels : ["January","February","March","April","May","June"],
+                datasets : [
+                {
+                    fillColor : "rgba(172,194,132,0.4)",
+                    strokeColor : "#ACC26D",
+                    pointColor : "#fff",
+                    pointStrokeColor : "#9DB86D",
+                    data : [203,156,99,251,305,247]
+                }
+            ]
+            }
+            
+            var barData = {
+                    labels : ["January","February","March","April","May","June"],
+                    datasets : [
+                        {
+                            fillColor : "#48A497",
+                            strokeColor : "#48A4D1",
+                            data : [456,479,324,569,702,600]
+                        }                  
+                    ]
+                }
+               
+            // get bar chart canvas
+            var income = document.getElementById('visitsPerCountry').getContext("2d");
+            // draw bar chart
+            var myBarChart = new Chart(income).Bar(barData);
+            myBarChart.addData([40, 60], "August");
+            
+            
+            // get line chart canvas
+            var buyers = document.getElementById('visitsPerDay').getContext('2d');
+            
+            new Chart(buyers).Line(buyerData);
+      </script>      
+       -->
 			</div>
-
+			<div id="error" class="alert center alert-danger fade in"
+				ng-show="errorS">
+				<strong>Errore!</strong> <br /> {{textError}}
+			</div>
 		</div>
 	</div>
-	
-	<div ng-controller="CookiesCtrl" class="alert alert-info fade in center" id="cookiePolicy" ng-hide="cookiePolicyAccepted" ng-cloak>
-		<a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="acceptCookiePolicy()">&times;</a>
-		<p><strong>Cookies on {{hostname}} : </strong> Find out about cookies and changing your settings.
-		If you continue without changing your settings you are consenting to use of cookies on our site.</p>
-	</div>
 
 
 
+
+
+
+	<script src="./js/jquery.js"></script>
+	<script src="./js/angular.js"></script>
 	<script src="./js/angular-route.js"></script>
+	<script src="./js/angular-cookies.js"></script>
 	<script src="./js/angular-sanitize.js"></script>
 	<script src="./js/angular-resource.js"></script>
 	<script src="./js/Chart.min.js"></script>
 	<script src="./scripts/app.js"></script>
 	<script src="./scripts/controllers/main.js"></script>
 	<script src="./scripts/controllers/stats.js"></script>
-	<script src="./scripts/controllers/cookies.js"></script>
 </body>
 </html>
