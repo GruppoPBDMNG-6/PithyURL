@@ -29,12 +29,4 @@ public class GeoLocationByIP {
 		Country country = response.getCountry();
 		return country.getIsoCode();
 	}
-	
-	public static void main(String[] args) throws IOException, GeoIp2Exception {
-		GeoLocationByIP p = new GeoLocationByIP();
-		String[] Ips = {"31.44.79.255", "5.198.159.255", "5.53.255.255"};
-		for(int i = 0; i<Ips.length; i++){
-		System.out.println(p.getCountryFromIP(Ips[i]));
-		}
-	}
 }

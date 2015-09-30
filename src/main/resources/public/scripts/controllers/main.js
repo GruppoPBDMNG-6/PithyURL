@@ -55,6 +55,7 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 	$scope.resetMsgs = function() {
 		$rootScope.done = false;
 	    $rootScope.error = false;
+	    $rootScope.errorS = false;
 	    $scope.lsurl.short = null;
 	}
 
