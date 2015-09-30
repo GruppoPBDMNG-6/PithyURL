@@ -25,6 +25,9 @@ public class LsUrlServer {
 	    @SerializedName("tot_visits")
 	    private int totalVisits;
 	    
+	    @SerializedName("unique_visits")
+	    private int uniqueVisits;
+	    
 	    @SerializedName("create_date")
 	    private Date createDate;
 	 
@@ -35,6 +38,7 @@ public class LsUrlServer {
 		        this.longUrl = dbObject.getString("long");
 		        this.shortUrl = dbObject.getString("short");
 		        this.totalVisits = dbObject.getInt("tot_visits");
+		        this.uniqueVisits = dbObject.getInt("unique_visits");
 		        this.createDate = dbObject.getDate("create_date");
 	    	} 
 	    	
@@ -47,9 +51,13 @@ public class LsUrlServer {
 	    
 	    public int getTotVisits() {return totalVisits;}
 	    
+	    public int getUniqueVisits() {return uniqueVisits;}
+	    
 	    public Date getCreateDate() {return createDate;}
 	    
 	    public void setTotVisits(int newTotVisits) {this.totalVisits = newTotVisits;}
+	    
+	    public void setUniqueVisits(int newUniqueVisits) {this.uniqueVisits = newUniqueVisits;}
 	    
 	    public void setResponse(String response){this.response = response;}
 	    

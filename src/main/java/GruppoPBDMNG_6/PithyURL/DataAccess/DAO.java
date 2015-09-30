@@ -44,7 +44,7 @@ public class DAO {
 	        	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
 	            System.out.println("W - Short url : " + url.getShortUrl());
 	        	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
-	        			.append("tot_visits", 0).append("create_date", new Date()));
+	        			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
 	        } else {
 	            System.out.println("W - Long url non valido");
 	        	throw new BadURLFormatException(url.getLongUrl() + "non valido");
@@ -53,22 +53,28 @@ public class DAO {
         return url;
     }
     
-    public LsUrlServer visitLsUrl(String shortUrl) throws ShortUrlNotFoundException{
+    public LsUrlServer visitLsUrl(String shortUrl, boolean visitable) throws ShortUrlNotFoundException{
     	LsUrlServer url = new LsUrlServer((BasicDBObject) collection.findOne(new BasicDBObject("short", shortUrl)));
-    	int tot_visits = url.getTotVisits() + 1;
-    	
+    	int tot_visits = url.getTotVisits();
+    	int unique_visits = url.getUniqueVisits();
+    	tot_visits++;
+    	if(visitable){
+    		unique_visits++;
+    	}
     	
     	if (url.getShortUrl() == null) {
     		System.out.println("R - Short url : " + shortUrl);
     		System.out.println("R - Short url non trovata");
     		throw new ShortUrlNotFoundException(url.getShortUrl() + "non trovato");
     	} else {
-    		updateTotVisits(shortUrl, tot_visits);
+    		updateVisits(shortUrl, tot_visits, unique_visits);
     		url.setTotVisits(tot_visits);
+    		url.setUniqueVisits(unique_visits);
     		System.out.println("R - Creation date : " + url.getCreateDate());
     		System.out.println("R - Long url : " + url.getLongUrl());
             System.out.println("R - Short url : " + url.getShortUrl());
             System.out.println("R - totVisits : " + url.getTotVisits());
+            System.out.println("R - uniqueVisits : " + url.getUniqueVisits());
     		return url;
     	}
     	
@@ -86,14 +92,16 @@ public class DAO {
     		System.out.println("R - Long url : " + url.getLongUrl());
             System.out.println("R - Short url : " + url.getShortUrl());
             System.out.println("R - totVisits : " + url.getTotVisits());
+            System.out.println("R - uniqueVisits : " + url.getUniqueVisits());
     		return url;
     	}
     	
     }
     
-    public void updateTotVisits(String shortUrl, int totVisits) {
+    public void updateVisits(String shortUrl, int totVisits, int uniqueVisits) {
     	
-    	collection.update(new BasicDBObject("short", shortUrl), (DBObject) JSON.parse("{ '$set' : { 'tot_visits': "+ totVisits +"}}"));
+    	collection.update(new BasicDBObject("short", shortUrl), (DBObject) JSON.parse("{ '$set' : { 'tot_visits': "+ totVisits + 
+    			", 'unique_visits': "+ uniqueVisits + "}}"));
     	
     }
     

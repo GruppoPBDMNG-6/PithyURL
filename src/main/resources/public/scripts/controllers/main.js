@@ -51,5 +51,11 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 		mainView = true;
 		$scope.mainView = mainView;
 	}
+	
+	$scope.resetMsgs = function() {
+		$rootScope.done = false;
+	    $rootScope.error = false;
+	    $scope.lsurl.short = null;
+	}
 
 });

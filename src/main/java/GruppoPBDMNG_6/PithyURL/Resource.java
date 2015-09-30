@@ -1,10 +1,14 @@
 package GruppoPBDMNG_6.PithyURL;
  
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.google.gson.Gson;
 
 import GruppoPBDMNG_6.PithyURL.DataAccess.DAO;
 import GruppoPBDMNG_6.PithyURL.Entities.*;
 import GruppoPBDMNG_6.PithyURL.Exceptions.*;
+import GruppoPBDMNG_6.PithyURL.Util.CookiesHandler;
 import GruppoPBDMNG_6.PithyURL.Util.JsonTransformer;
 import static spark.Spark.*;
  
@@ -24,13 +28,14 @@ public class Resource {
     	// eseguita all avvio
         get("/:short", "application/json", (request, response)
                 -> {
-                	
+
                 	if (!request.params(":short").equals("favicon.ico")){
                 		
                 		System.out.println("R - Richiesta fatta da : "+ request.ip());
                 		
                 		try{
-		            		LsUrlServer url = db.visitLsUrl(request.params(":short"));
+                			LsUrlServer url = db.visitLsUrl(request.params(":short"), 
+                					CookiesHandler.handleVisit(request, response));
 		                	response.redirect(url.getLongUrl());
 	
 	                	} catch (ShortUrlNotFoundException e){
