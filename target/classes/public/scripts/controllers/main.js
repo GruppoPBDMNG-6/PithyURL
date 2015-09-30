@@ -8,6 +8,7 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
     
     $rootScope.done = false;
     $rootScope.error = false;
+    $rootScope.errorS = false;
 
 	$scope.createLsUrl = function() {
 		console.log("ciao");
@@ -44,16 +45,19 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 	$scope.toStats = function() {
 		mainView = false;
 		$scope.mainView = mainView;
+		$scope.resetMsgs();
 	}
 	
 	$scope.toMain = function() {
 		mainView = true;
 		$scope.mainView = mainView;
+		$scope.resetMsgs();
 	}
 	
 	$scope.resetMsgs = function() {
 		$rootScope.done = false;
 	    $rootScope.error = false;
+	    $rootScope.errorS = false;
 	    $scope.lsurl.short = null;
 	}
 

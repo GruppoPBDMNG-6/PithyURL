@@ -45,11 +45,13 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 	$scope.toStats = function() {
 		mainView = false;
 		$scope.mainView = mainView;
+		$scope.resetMsgs();
 	}
 	
 	$scope.toMain = function() {
 		mainView = true;
 		$scope.mainView = mainView;
+		$scope.resetMsgs();
 	}
 	
 	$scope.resetMsgs = function() {

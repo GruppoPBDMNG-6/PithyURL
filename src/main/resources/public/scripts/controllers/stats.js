@@ -23,6 +23,7 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 					$scope.lsurl.longUrl = data.long;
 					$scope.lsurl.shortUrl = data.short;
 					$scope.lsurl.totVisits = data.tot_visits;
+					$scope.lsurl.uniqueVisits = data.unique_visits;
 					$scope.lsurl.creationDate = data.create_date;
 					$rootScope.stats = true;
 				}	

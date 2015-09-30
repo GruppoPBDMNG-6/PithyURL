@@ -35,9 +35,10 @@
 		<div ng-show="mainView">
 			<!-- Nav tabs -->
 			<ul class="nav nav-pills nav-justified">
-				<li class="active"><a data-toggle="pill" href="#standard">Standard
-						PithyURL</a></li>
-				<li><a data-toggle="pill" href="#custom">Custom PithyURL</a></li>
+				<li class="active"><a data-toggle="pill" href="#standard"
+						ng-click="resetMsgs()">Standard PithyURL</a></li>
+				<li><a data-toggle="pill" href="#custom" ng-click="resetMsgs()">Custom		
+ 						PithyURL</a></li>
 			</ul>
 
 			<!-- Tab panes -->
@@ -59,7 +60,7 @@
 					</form>
 				</div>
 
-				<div class="tab-pane" id="custom" align="center">
+				<div class="tab-pane" id="custom" align="center" ng-cloak>
 					<form class="form-horizontal" role="form"
 						ng-submit="createLsUrlCustom()">
 						<div class="input-group input-group-lg">
@@ -80,13 +81,13 @@
 				</div>
 			</div>
 
-			<div id="success" class="alert center alert-success fade in" ng-show="done">
+			<div id="success" class="alert center alert-success fade in" ng-show="done" ng-cloak>
 				<strong>Success!</strong> Here's your PithyURL :
 				{{"http://"+hostname+createdUrl.short}}
 			</div>
 
 			<div id="error" class="alert center alert-danger fade in"
-				ng-show="error">
+				ng-show="error" ng-cloak>
 				<strong>Errore!</strong> <br /> {{textError}}
 			</div>
 
@@ -94,7 +95,7 @@
 
 
 
-		<div ng-controller="StatsCtrl" ng-hide="mainView">
+		<div ng-controller="StatsCtrl" ng-hide="mainView" ng-cloak>
 			<form class="form-horizontal" role="form" ng-submit="inspectUrl()">
 				<div class="row">
 					<div class="input-group input-group-lg">
@@ -129,6 +130,10 @@
 					<tr>
 						<th data-field="totVisits">Total visits:</th>
 						<td>{{lsurl.totVisits}}</td>
+					</tr>
+					<tr>		
+						<th data-field="uniqueVisits">Unique visits:</th>		
+						<td>{{lsurl.uniqueVisits}}</td>		
 					</tr>
 				</table>
 				<!-- 
@@ -178,13 +183,17 @@
        -->
 			</div>
 			<div id="error" class="alert center alert-danger fade in"
-				ng-show="errorS">
+				ng-show="errorS" ng-cloak>
 				<strong>Errore!</strong> <br /> {{textError}}
 			</div>
 		</div>
 	</div>
 
-
+	<div ng-controller="CookiesCtrl" class="alert alert-info fade in center" id="cookiePolicy" ng-hide="cookiePolicyAccepted" ng-cloak>		
+		<a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="acceptCookiePolicy()">&times;</a>		
+		<p><strong>Cookies on {{hostname}} : </strong> Find out about cookies and changing your settings.		
+		If you continue without changing your settings you are consenting to use of cookies on our site.</p>		
+	</div>
 
 
 
@@ -199,5 +208,6 @@
 	<script src="./scripts/app.js"></script>
 	<script src="./scripts/controllers/main.js"></script>
 	<script src="./scripts/controllers/stats.js"></script>
+	<script src="./scripts/controllers/cookies.js"></script>
 </body>
 </html>
