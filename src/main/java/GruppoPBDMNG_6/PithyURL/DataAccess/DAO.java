@@ -29,26 +29,37 @@ public class DAO {
     
     public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException{
         LsUrlClient url = new Gson().fromJson(body, LsUrlClient.class);
+        System.out.println("W - Long url : " + url.getLongUrl());
+        LongUrlValidator validator = new LongUrlValidator(url.getLongUrl());
         String shortUrl = url.getShortUrl();
+        
         if(url.isCustom()){
-	        	WordChecker wc = new WordChecker();
-	        	if(wc.isUndesirable(shortUrl)){
-						throw new UndesirableWordException();
-	        	}
-	        }
-	        System.out.println("W - Long url : " + url.getLongUrl());
-	        LongUrlValidator validator = new LongUrlValidator(url.getLongUrl());
-	        
-	        
-	        if(validator.validate()){
-	        	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
-	            System.out.println("W - Short url : " + url.getShortUrl());
-	        	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
-	        			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
-	        } else {
-	            System.out.println("W - Long url non valido");
-	        	throw new BadURLFormatException(url.getLongUrl() + "non valido");
-	        }
+        	WordChecker wc = new WordChecker();
+        	if(wc.isUndesirable(shortUrl)){
+					throw new UndesirableWordException();
+        	}
+        }
+        
+        if(validator.validate()){
+        	
+        	LsUrlServer tempurl =  checkLongUrl(validator.getFixedUrl());  
+        	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
+            System.out.println("W - Short url : " + url.getShortUrl());
+            if(tempurl.getLongUrl() != null && !url.isCustom()){
+            	
+            	url.setShortUrl(tempurl.getShortUrl());
+
+            }else{
+            	
+        	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
+        			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
+        	
+            }
+            
+        } else {
+            System.out.println("W - Long url non valido");
+        	throw new BadURLFormatException(url.getLongUrl() + "non valido");
+        }
 		       
         return url;
     }
@@ -102,6 +113,14 @@ public class DAO {
     	
     	collection.update(new BasicDBObject("short", shortUrl), (DBObject) JSON.parse("{ '$set' : { 'tot_visits': "+ totVisits + 
     			", 'unique_visits': "+ uniqueVisits + "}}"));
+    	
+    }
+    public LsUrlServer checkLongUrl(String longUrl) {
+    	
+    	LsUrlServer url = new LsUrlServer((BasicDBObject) collection.findOne(new BasicDBObject("long", longUrl)));
+    	System.out.println("Search result " + url.getLongUrl());
+        return url;
+    	
     	
     }
     
