@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html ng-app="pithyurl_main">
+
 <head>
-    <title>Pithy URL</title>
-      <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./css/main.css">
+
+<title>Pithy URL</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/main.css">
+
 </head>
+
 <body ng-controller="CreateCtrl">
+
 <div class="header">
-    <div class="navbar navbar-default" role="navigation">
+	<div class="navbar navbar-default" role="navigation">
+	
         <div class="container">
+        
             <div class="navbar-header">
                 <a class="navbar-brand" href="" ng-click="toMain()">
                     <img alt="Logo" src="">
                 </a>
             </div>
+            
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="" ng-click="toStats()"><span class="glyphicon glyphicon-stats" ></span> URL Stats</a></li>
                 </ul>
             </div>
+            
         </div>
+        
     </div>
 </div>
 
 <div class="container">
 	  <div ng-show="mainView">
 	    <!-- Nav tabs -->
-	    <ul class="nav nav-pills nav-justified">
-	      <li class="active"><a data-toggle="pill" href="#standard">Standard PithyURL</a></li>
-	      <li><a data-toggle="pill" href="#custom">Custom PithyURL</a></li>
-	    </ul>
-	    
-	    <!-- Tab panes -->
+<ul class="nav nav-pills nav-justified">
+  <li class="active"><a data-toggle="pill" href="#standard">Standard PithyURL</a></li>
+  <li><a data-toggle="pill" href="#custom">Custom PithyURL</a></li>
+</ul>
+
+<!-- Tab panes -->
 	    <div class="tab-content">
 	    
 	      <div class="tab-pane active" id="standard" align="center">
@@ -69,11 +82,11 @@
 	      </div>
 	    </div>
 	    
-	    	<div id="success" class="alert alert-success fade in" ng-show="done">
+	    	<div id="success" class="alert alert-success fade in" ng-show="done" ng-cloak>
 	        <strong>Success!</strong> Here's your PithyURL : {{"http://"+hostname+createdUrl.short}}
 	    	</div>
 	    	  	
-	    	<div id="error" class="alert center alert-danger fade in" ng-show="error">           
+	    	<div id="error" class="alert center alert-danger fade in" ng-show="error" ng-cloak>           
 	        <strong>Errore!</strong>
 	        <br />
 	        {{textError}}    
@@ -81,7 +94,7 @@
 	 		
 	  </div> 
 	  
-	  <div ng-controller="StatsCtrl" ng-hide="mainView">
+	  <div ng-controller="StatsCtrl" ng-hide="mainView" ng-cloak>
 <form class="form-horizontal" role="form" ng-submit="inspectUrl()">
   <div class="row">
     <div class="input-group input-group-lg">
