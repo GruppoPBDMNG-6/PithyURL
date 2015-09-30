@@ -43,32 +43,6 @@ public class Resource {
                 	
                 });
         
-        get("/preview/:short", "application/json", (request, response)
-                -> {
-                	System.out.println("R - Richiesta preview fatta da : "+ request.ip());
-                	LsUrlServer url;
-                	
-                	try{
-	            		url = db.getLsUrl(request.params(":short"));
-                	} catch (ShortUrlNotFoundException e){
-                		response.redirect("404.html");
-                		url = null;
-                	}
-              
-                	System.out.println("");
-                	return url;
-                	
-                	//manderà la richiesta alla pagina non ancora fatta 
-                	//e all ok verra chiamato il get di sopra
-                	
-                }, new JsonTransformer());
-        
-        get("/#/:serverpage", "application/json", (request, response)
-                -> {
-                	System.out.println("PR - Richiesta pagina : "+ request.params(":serverpage"));
-                	System.out.println("");
-            		return null;
-                });
         
         get("/404.html", (request, response) -> {
 			return null;
