@@ -46,5 +46,9 @@ public class LsUrlClient {
 	public boolean isCustom() {
 		return custom;
 	}
+	
+	public void setShortUrl(String shortUrl){
+		this.shortUrl = shortUrl;
+	}
  
 }
