@@ -6,8 +6,9 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 	
     $scope.lsurl = {};
     
-    $rootScope.done = false;
+    $rootScope.response = false;
     $rootScope.error = false;
+    
     $rootScope.errorS = false;
 
 	$scope.createLsUrl = function() {
@@ -19,7 +20,7 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 			$location.path('/');
 			console.log(data.id);
 			$scope.createdUrl = data;
-			$rootScope.done = true;
+			$rootScope.response = true;
 		}).error(function(data, status) {
 			console.log('Error ' + data)
 			$rootScope.error = true;
@@ -33,9 +34,10 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 		$http.post('/api/v1/lsurl', $scope.lsurl).success(function(data) {
 			$location.path('/');
 			$scope.createdUrl = data;
-			$rootScope.done = true;
+			$rootScope.response = true;
 		}).error(function(data, status) {
-			console.log('Error ' + data)
+			console.log('Error ' + data);
+			$rootScope.response = true;
 			$rootScope.error = true;
 			if(status == 500){
 			$scope.textError = "Parola non accettabile";
@@ -55,7 +57,7 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 	}
 	
 	$scope.resetMsgs = function() {
-		$rootScope.done = false;
+		$rootScope.response = false;
 	    $rootScope.error = false;
 	    $rootScope.errorS = false;
 	    $scope.lsurl.short = null;

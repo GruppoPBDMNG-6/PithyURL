@@ -29,4 +29,18 @@ public class GeoLocationByIP {
 		Country country = response.getCountry();
 		return country.getIsoCode();
 	}
+	
+	public static void main(String[] args){
+		try {
+			GeoLocationByIP b = new GeoLocationByIP();
+			System.out.println(b.getCountryFromIP("31.22.48.0"));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		} catch (GeoIp2Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

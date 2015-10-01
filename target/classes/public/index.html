@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="pithyurl_main">
 <head>
-<title>Pithy URL</title>
-<link rel="icon" 
-      type="image/png" 
-      href="http://findicons.com/files/icons/2787/beautiful_flat_icons/128/scissors.png">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="./css/main.css">
+	<title>Pithy URL</title>
+	<link rel="icon" 
+	      type="image/png" 
+	      href="http://findicons.com/files/icons/2787/beautiful_flat_icons/128/scissors.png">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./bootstrap-3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/main.css">
 </head>
 <body ng-controller="CreateCtrl">
 	<div class="header">
@@ -84,16 +79,17 @@
 				</div>
 			</div>
 
-			<div id="success" class="alert center alert-success fade in" ng-show="done" ng-cloak>
-				<strong>Success!</strong> Here's your PithyURL :
-				{{"http://"+hostname+createdUrl.short}}
+			<div ng-show="response">
+				<div id="success" class="alert center alert-success fade in" ng-hide="error" ng-cloak>
+					<strong>Success!</strong> Here's your PithyURL :
+					{{"http://"+hostname+createdUrl.short}}
+				</div>
+	
+				<div id="error" class="alert center alert-danger fade in"
+					ng-show="error" ng-cloak>
+					<strong>Errore!</strong> <br /> {{textError}}
+				</div>
 			</div>
-
-			<div id="error" class="alert center alert-danger fade in"
-				ng-show="error" ng-cloak>
-				<strong>Errore!</strong> <br /> {{textError}}
-			</div>
-
 		</div>
 
 
@@ -200,14 +196,17 @@
 
 
 
-
+	<script src="./js/jquery.min.js"></script>
 	<script src="./js/jquery.js"></script>
-	<script src="./js/angular.js"></script>
-	<script src="./js/angular-route.js"></script>
-	<script src="./js/angular-cookies.js"></script>
-	<script src="./js/angular-sanitize.js"></script>
-	<script src="./js/angular-resource.js"></script>
-	<script src="./js/Chart.min.js"></script>
+	<script src="./bootstrap-3.3.5/js/bootstrap.min.js"></script>
+	
+	<script src="./angular/js/angular.js"></script>
+	<script src="./js/angular/angular-route.js"></script>
+	<script src="./js/angular/angular-cookies.js"></script>
+	<script src="./js/angular/angular-sanitize.js"></script>
+	<script src="./js/angular/angular-resource.js"></script>
+	<script src="./js/angular/Chart.min.js"></script>
+	
 	<script src="./scripts/app.js"></script>
 	<script src="./scripts/controllers/main.js"></script>
 	<script src="./scripts/controllers/stats.js"></script>
