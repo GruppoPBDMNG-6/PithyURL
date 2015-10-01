@@ -2,6 +2,10 @@ package GruppoPBDMNG_6.PithyURL.Util;
 
 import java.util.Random;
 
+import com.mongodb.BasicDBObject;
+
+import GruppoPBDMNG_6.PithyURL.Entities.LsUrlServer;
+
 public class ShortLinkGenerator {
 		
 	private static final String _CHAR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -9,7 +13,7 @@ public class ShortLinkGenerator {
     
     private boolean isCustom;
     private String customLink;
-    
+    private  String  duplicato = "Duplicate";
     public ShortLinkGenerator(){
     	isCustom = false;
     }
@@ -17,27 +21,36 @@ public class ShortLinkGenerator {
     public ShortLinkGenerator(String customLink){
     	isCustom = true;
     	this.customLink = customLink;
+    	System.out.println("entrato in linkgenerator.");
     }
 
     public String generaLink(){
-    	
-    	String output;
+    	boolean check = true;
+    	String output = duplicato;
     	if(isCustom){
     		//inutile ma manutenibile
     		output = customLink;
+    		check = CheckDuplicated.checkLinkGen(output);
+    		System.out.println("duplicato ? : " + check );
+    		if(check == true){output = duplicato;}
     	} else {
 	        char[] chars = _CHAR.toCharArray();
 	        StringBuilder sb = new StringBuilder();
 	        Random random = new Random();
+	        while(check == true){
 	        for (int i = 0; i < RANDOM_STR_LENGTH; i++) {
 	            char c = chars[random.nextInt(chars.length)];
 	            sb.append(c);
 	        }
 	        output = sb.toString();
+	        check = CheckDuplicated.checkLinkGen(output);
+	        }
     	}
     	
         return output;
         
     }
+    
+    
 
 }
