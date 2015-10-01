@@ -5,8 +5,10 @@ import java.util.Date;
 import GruppoPBDMNG_6.PithyURL.Entities.LsUrlClient;
 import GruppoPBDMNG_6.PithyURL.Entities.LsUrlServer;
 import GruppoPBDMNG_6.PithyURL.Exceptions.BadURLFormatException;
+import GruppoPBDMNG_6.PithyURL.Exceptions.ShortUrlDuplicatedException;
 import GruppoPBDMNG_6.PithyURL.Exceptions.ShortUrlNotFoundException;
 import GruppoPBDMNG_6.PithyURL.Exceptions.UndesirableWordException;
+import GruppoPBDMNG_6.PithyURL.Util.CheckDuplicated;
 import GruppoPBDMNG_6.PithyURL.Util.LongUrlValidator;
 import GruppoPBDMNG_6.PithyURL.Util.Check.WordChecker;
 
@@ -19,21 +21,24 @@ public class DAO {
     @SuppressWarnings("unused")
 	private final DB db;
     private final DBCollection collection;
- 
+    private  String  duplicato = "Duplicate";
+   
     public DAO(DB db) {
         this.db = db;
         this.collection = db.getCollection("lsurl");
+        CheckDuplicated.collection = collection; // fix checkDuplicated
     }
  
     //funzioni di scrittura - lettura db
     
-    public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException{
+    public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException,ShortUrlDuplicatedException{
         LsUrlClient url = new Gson().fromJson(body, LsUrlClient.class);
         System.out.println("W - Long url : " + url.getLongUrl());
         LongUrlValidator validator = new LongUrlValidator(url.getLongUrl());
         String shortUrl = url.getShortUrl();
         
         if(url.isCustom()){
+       
         	WordChecker wc = new WordChecker();
         	if(wc.isUndesirable(shortUrl)){
 					throw new UndesirableWordException();
@@ -42,18 +47,24 @@ public class DAO {
         
         if(validator.validate()){
         	
-        	LsUrlServer tempurl =  checkLongUrl(validator.getFixedUrl());  
+        	LsUrlServer tempurl =  CheckDuplicated.checkLongUrl(validator.getFixedUrl());   // fix checkDuplicated
         	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
             System.out.println("W - Short url : " + url.getShortUrl());
+            
             if(tempurl.getLongUrl() != null && !url.isCustom()){
             	
             	url.setShortUrl(tempurl.getShortUrl());
 
+            }else if (url.isCustom()){
+            	System.out.println("W - if checkLinkgen.");
+            	if(shortUrl == duplicato) throw new ShortUrlDuplicatedException(shortUrl + " : esistente scegli un altro!");
+            	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
+             			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
+        	
             }else{
             	
-        	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
-        			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
-        	
+            	 collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
+             			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
             }
             
         } else {
@@ -115,13 +126,6 @@ public class DAO {
     			", 'unique_visits': "+ uniqueVisits + "}}"));
     	
     }
-    public LsUrlServer checkLongUrl(String longUrl) {
-    	
-    	LsUrlServer url = new LsUrlServer((BasicDBObject) collection.findOne(new BasicDBObject("long", longUrl)));
-    	System.out.println("Search result " + url.getLongUrl());
-        return url;
-    	
-    	
-    }
+   
     
 }

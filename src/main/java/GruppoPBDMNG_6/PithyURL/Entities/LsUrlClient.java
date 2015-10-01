@@ -18,7 +18,9 @@ public class LsUrlClient {
     @SerializedName("custom")
     private boolean custom;
  
-    public LsUrlClient() {}
+    public LsUrlClient() {
+    	
+    }
     
     public String getLongUrl() { 
         return longUrl;
@@ -33,6 +35,7 @@ public class LsUrlClient {
 	        if (custom){
 	        	linkGen = new ShortLinkGenerator(shortUrl);
 	        	this.shortUrl = linkGen.generaLink();
+	        	
 	        } else {
 	        	linkGen = new ShortLinkGenerator();
 	        	this.shortUrl = linkGen.generaLink();
