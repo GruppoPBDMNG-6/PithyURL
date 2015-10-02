@@ -10,6 +10,7 @@ import GruppoPBDMNG_6.PithyURL.Exceptions.ShortUrlNotFoundException;
 import GruppoPBDMNG_6.PithyURL.Exceptions.UndesirableWordException;
 import GruppoPBDMNG_6.PithyURL.Util.CheckDuplicated;
 import GruppoPBDMNG_6.PithyURL.Util.LongUrlValidator;
+import GruppoPBDMNG_6.PithyURL.Util.ShortUrlValidator;
 import GruppoPBDMNG_6.PithyURL.Util.Check.WordChecker;
 
 import com.google.gson.Gson;
@@ -33,43 +34,54 @@ public class DAO {
     
     public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException,ShortUrlDuplicatedException{
         LsUrlClient url = new Gson().fromJson(body, LsUrlClient.class);
+        
+        if(url.getLongUrl() == null){
+        	throw new BadURLFormatException("W - Long : "+ url.getLongUrl() + "non valido");
+        }
+        
         System.out.println("W - Long url : " + url.getLongUrl());
+        
         LongUrlValidator validator = new LongUrlValidator(url.getLongUrl());
         String shortUrl = url.getShortUrl();
         
-        if(url.isCustom()){
-       
-        	WordChecker wc = new WordChecker();
-        	if(wc.isUndesirable(shortUrl)){
-					throw new UndesirableWordException();
-        	}
-        }
         
         if(validator.validate()){
         	
-        	LsUrlServer tempurl =  CheckDuplicated.checkLongUrl(validator.getFixedUrl());   // fix checkDuplicated
-        	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
-            System.out.println("W - Short url : " + url.getShortUrl());
-            
-            if(tempurl.getLongUrl() != null && !url.isCustom()){
+        	if(url.isCustom()){
             	
-            	url.setShortUrl(tempurl.getShortUrl());
-
-            }else if (url.isCustom()){
-            	System.out.println("W - if checkLinkgen.");
-            	if(shortUrl == duplicato) throw new ShortUrlDuplicatedException(shortUrl + " : esistente scegli un altro!");
+            	url.generateShort();
+            	System.out.println("W - Short url : " + url.getShortUrl());
+            	
+            	WordChecker wc = new WordChecker();
+            	if(wc.isUndesirable(shortUrl) || !ShortUrlValidator.validate(url.getShortUrl())){
+    				throw new UndesirableWordException("W - Parola non accettabile : " + url.getShortUrl());
+            	} 
+            	
+            	if(url.getShortUrl() == duplicato) throw new ShortUrlDuplicatedException("W - Short url esistente : " + url.getShortUrl());
+            	
             	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
              			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
-        	
-            }else{
-            	
-            	 collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
-             			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
-            }
+        		
+        	}else{
+        		
+        		url.generateShort();
+        		
+        		LsUrlServer tempurl =  CheckDuplicated.checkLongUrl(validator.getFixedUrl());   // fix checkDuplicated
+            	System.out.println("W - Long url fixed : " + validator.getFixedUrl());
+                
+                if(tempurl.getLongUrl() != null ){
+                	url.setShortUrl(tempurl.getShortUrl());
+                } else {
+                	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
+                 			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()));
+                }
+                
+                System.out.println("W - Short url : " + url.getShortUrl());
+                
+        	}
             
         } else {
-            System.out.println("W - Long url non valido");
-        	throw new BadURLFormatException(url.getLongUrl() + "non valido");
+        	throw new BadURLFormatException("W - Long : "+ url.getLongUrl() + " non valido");
         }
 		       
         return url;
@@ -124,6 +136,10 @@ public class DAO {
     	
     	collection.update(new BasicDBObject("short", shortUrl), (DBObject) JSON.parse("{ '$set' : { 'tot_visits': "+ totVisits + 
     			", 'unique_visits': "+ uniqueVisits + "}}"));
+    	
+    }
+    
+    private void InitializeDb(){
     	
     }
    

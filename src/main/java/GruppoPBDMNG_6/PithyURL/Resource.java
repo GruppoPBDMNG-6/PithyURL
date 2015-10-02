@@ -59,12 +59,19 @@ public class Resource {
         	LsUrlClient url;
         	try {
 					url = db.createNewLsUrl(request.body());
-				} catch (UndesirableWordException | BadURLFormatException e) {
+				} catch (UndesirableWordException e) {
 					System.out.println(e.getMessage());
 					response.status(500);
 					url = null;
+				} catch ( BadURLFormatException e){
+					System.out.println(e.getMessage());
+					response.status(502);
+					url = null;
+				} catch (ShortUrlDuplicatedException e){
+					System.out.println(e.getMessage());
+					response.status(503);
+					url = null;
 				}
-        	
             System.out.println("");
             return url;
         }, new JsonTransformer());
@@ -89,6 +96,7 @@ public class Resource {
         	return sUrl;
         	
         }, new JsonTransformer());
+        
 
     }
  

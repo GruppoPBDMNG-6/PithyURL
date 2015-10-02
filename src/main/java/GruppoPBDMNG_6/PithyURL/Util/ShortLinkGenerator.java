@@ -21,29 +21,26 @@ public class ShortLinkGenerator {
     public ShortLinkGenerator(String customLink){
     	isCustom = true;
     	this.customLink = customLink;
-    	System.out.println("entrato in linkgenerator.");
     }
 
     public String generaLink(){
     	boolean check = true;
-    	String output = duplicato;
+    	String output = "";
     	if(isCustom){
-    		//inutile ma manutenibile
     		output = customLink;
     		check = CheckDuplicated.checkLinkGen(output);
-    		System.out.println("duplicato ? : " + check );
     		if(check == true){output = duplicato;}
     	} else {
 	        char[] chars = _CHAR.toCharArray();
 	        StringBuilder sb = new StringBuilder();
 	        Random random = new Random();
 	        while(check == true){
-	        for (int i = 0; i < RANDOM_STR_LENGTH; i++) {
-	            char c = chars[random.nextInt(chars.length)];
-	            sb.append(c);
-	        }
-	        output = sb.toString();
-	        check = CheckDuplicated.checkLinkGen(output);
+		        for (int i = 0; i < RANDOM_STR_LENGTH; i++) {
+		            char c = chars[random.nextInt(chars.length)];
+		            sb.append(c);
+		        }
+		        output = sb.toString();
+		        check = CheckDuplicated.checkLinkGen(output);
 	        }
     	}
     	

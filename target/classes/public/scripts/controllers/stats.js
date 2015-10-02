@@ -25,6 +25,8 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 					$scope.lsurl.totVisits = data.tot_visits;
 					$scope.lsurl.uniqueVisits = data.unique_visits;
 					$scope.lsurl.creationDate = data.create_date;
+					$scope.lsurl.coutries = data.countries;
+					$scope.genWorld();
 					$rootScope.stats = true;
 				}	
 			}).error(function(data) {
@@ -32,6 +34,35 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 				$rootScope.error = true;
 			})
 		}
+	}
+	
+	$scope.genWorld = function() {
+		
+		console.log(stateAcronyms.RU);
+		
+		
+		var world = '{ "map" : { "name" : "world_countries",	"defaultArea" : {"attrs" : {"fill" : "#3366cc", "stroke" : "#ced8d0"}}},'+
+							'"legend" : {"area" : {"title" : "Legend",'+
+							' "slices" : [ {"min" : "1" , "max": "100" , "attrs" : {"fill" : "#FF9900"} , "label" : "From 1 to 100 visits"} '+
+										', {"min" : "100" , "attrs" : {"fill" : "#FF4400"} , "label" : "From 101 to 1000 visits"}'+
+										']}},"areas" : {'
+		
+		for(var i in $scope.lsurl.coutries){
+			
+			if(stateAcronyms[$scope.lsurl.coutries[i].name] != undefined){
+			
+				world += '"'+$scope.lsurl.coutries[i].name+'" : {"value" : "'+$scope.lsurl.coutries[i].visits+'", "tooltip" : {"content" : "<span style=\'font-weight:bold;\'>'+stateAcronyms[$scope.lsurl.coutries[i].name]+'<\/span><br \/>Visits : '+$scope.lsurl.coutries[i].visits+'"}}';
+				if(i < $scope.lsurl.coutries.length - 1){
+					world += ',';
+				}
+				
+			}
+		}
+		
+		world += '}}';
+		
+		$(".mapaelContainer").mapael(JSON.parse(world));
+		
 	}
 	
 });

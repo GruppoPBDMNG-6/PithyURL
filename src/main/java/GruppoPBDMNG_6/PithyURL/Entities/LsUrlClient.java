@@ -28,21 +28,6 @@ public class LsUrlClient {
  
     public String getShortUrl() {
     	
-    	if (shortUrl.equals("not_set")){
-    		
-    		ShortLinkGenerator linkGen;
-        
-	        if (custom){
-	        	linkGen = new ShortLinkGenerator(shortUrl);
-	        	this.shortUrl = linkGen.generaLink();
-	        	
-	        } else {
-	        	linkGen = new ShortLinkGenerator();
-	        	this.shortUrl = linkGen.generaLink();
-	        }
-	        
-    	}
-    	
         return shortUrl;
     }
 
@@ -52,6 +37,22 @@ public class LsUrlClient {
 	
 	public void setShortUrl(String shortUrl){
 		this.shortUrl = shortUrl;
+	}
+	
+	public void generateShort(){
+		
+		ShortLinkGenerator linkGen;
+    
+        if (custom){
+        	linkGen = new ShortLinkGenerator(shortUrl);
+        	this.shortUrl = linkGen.generaLink();
+        	
+        } else {
+        	linkGen = new ShortLinkGenerator();
+        	this.shortUrl = linkGen.generaLink();
+        }
+	      
+    	
 	}
  
 }

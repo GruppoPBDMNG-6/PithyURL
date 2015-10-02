@@ -1,13 +1,19 @@
 package GruppoPBDMNG_6.PithyURL.Entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 
 import GruppoPBDMNG_6.PithyURL.Exceptions.ShortUrlNotFoundException;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 public class LsUrlServer {
 	
@@ -30,6 +36,9 @@ public class LsUrlServer {
 	    
 	    @SerializedName("create_date")
 	    private Date createDate;
+	    
+	    @SerializedName("countries")
+	    private ArrayList<Country> countries;
 	 
 	    public LsUrlServer(BasicDBObject dbObject) {
 	    	
@@ -40,6 +49,16 @@ public class LsUrlServer {
 		        this.totalVisits = dbObject.getInt("tot_visits");
 		        this.uniqueVisits = dbObject.getInt("unique_visits");
 		        this.createDate = dbObject.getDate("create_date");
+		        
+		        countries = new ArrayList<Country>();
+		        
+		        for (  Object object : (BasicDBList) dbObject.get("countries")) {
+		        	
+		        	BasicDBObject embedded =  (BasicDBObject) object;
+		        	countries.add(new Country(embedded.getString("name"), embedded.getInt("visits")));
+		            
+		        }
+		        
 	    	} 
 	    	
 	    }
@@ -62,5 +81,9 @@ public class LsUrlServer {
 	    public void setResponse(String response){this.response = response;}
 	    
 	    public String getResponse(){return this.response;}
+	    
+	    public void setCountries(ArrayList<Country> countries){this.countries = countries;}
+	    
+	    public ArrayList<Country> getCountries(){return this.countries;}
 	    
 }

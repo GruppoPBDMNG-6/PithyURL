@@ -1,0 +1,25 @@
+.mapTooltip {
+	position: fixed;
+	background-color: #fff;
+	moz-opacity: 0.80;
+	opacity: 0.80;
+	filter: alpha(opacity = 80);
+	border-radius: 10px;
+	padding: 10px;
+	z-index: 1000;
+	max-width: 200px;
+	display: none;
+	color: #343434;
+	border-width: 1px;
+	border-style: solid;
+    border-color: #3366cc;
+}
+
+.mapaelContainer {
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.areaLegend{
+	margin-top:40px;
+}

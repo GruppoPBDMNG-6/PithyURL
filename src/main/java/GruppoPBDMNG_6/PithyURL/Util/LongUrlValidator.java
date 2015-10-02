@@ -19,7 +19,7 @@ public class LongUrlValidator {
 		
 		boolean isValid = false;
 		
-		if(url.matches(URL_REGEX)){
+		if(url != null && url.matches(URL_REGEX)){
 			
 			isValid = true;
 			

@@ -15,14 +15,20 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 		console.log("ciao");
 		$scope.lsurl.custom = false;
 		$scope.lsurl.short = "not_set";
+		$rootScope.response = false;
 		console.log($scope.lsurl);
 		$http.post('/api/v1/lsurl', $scope.lsurl).success(function(data) {
 			$location.path('/');
 			console.log(data.id);
 			$scope.createdUrl = data;
 			$rootScope.response = true;
+			$rootScope.error = false;
 		}).error(function(data, status) {
-			console.log('Error ' + data)
+			console.log('Error ' + data);
+			if (status == 502){
+				$scope.textError = "Please insert a real URL.";
+			}
+			$rootScope.response = true;
 			$rootScope.error = true;
 		})
 	}
@@ -31,17 +37,23 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 		console.log("ciao");
 		$scope.lsurl.custom = true;
 		console.log($scope.lsurl);
+		$rootScope.response = false;
 		$http.post('/api/v1/lsurl', $scope.lsurl).success(function(data) {
 			$location.path('/');
 			$scope.createdUrl = data;
 			$rootScope.response = true;
+			$rootScope.error = false;
 		}).error(function(data, status) {
 			console.log('Error ' + data);
-			$rootScope.response = true;
-			$rootScope.error = true;
 			if(status == 500){
-			$scope.textError = "Parola non accettabile";
-			}})
+				$scope.textError = "Short URL contains unaccettable words!";
+			}else if (status == 502){
+				$scope.textError = "Please insert a real URL.";
+			}else if (status == 503){
+				$scope.textError = "Short URL already exists!";
+			}
+			$rootScope.response = true;
+			$rootScope.error = true;})
 	}
 
 	$scope.toStats = function() {
