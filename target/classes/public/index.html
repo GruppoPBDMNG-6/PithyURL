@@ -4,7 +4,7 @@
 	<title>Pithy URL</title>
 	<link rel="icon" 
 	      type="image/png" 
-	      href="http://findicons.com/files/icons/2787/beautiful_flat_icons/128/scissors.png">
+	      href="./images/linkicon.png">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="./bootstrap-3.3.5/css/bootstrap.min.css">
@@ -14,17 +14,19 @@
 	<div class="header">
 		<div class="navbar navbar-default" role="navigation">
 			<div class="container">
-				<div class="navbar-header">
+			<div class="row">
+				<div class="navbar-header col-md-2">
 					<a class="navbar-brand" href="" ng-click="toMain()"> <img
-						alt="Logo" src="">
+						alt="Logo" src="./images/logoFigoPithy223.png" style="width: 40%" >
 					</a>
 				</div>
-				<div class="collapse navbar-collapse" id="js-navbar-collapse">
-					<ul class="nav navbar-nav">
+				<div class="collapse navbar-collapse col-md-2 col-md-offset-2" id="js-navbar-collapse">
+					<ul class ="nav navbar-nav">
 						<li><a href="" ng-click="toStats()"><span
 								class="glyphicon glyphicon-stats"></span> URL Stats</a></li>
 					</ul>
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>
@@ -50,8 +52,8 @@
 								placeholder="Insert here your long URL." ng-model="lsurl.long"></textarea>
 						</div>
 
-						<button type="submit" class="btn btn-success btn-lg">
-							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						<button type="submit" class="btn btn-success btn-lg" >
+							<span   class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 							Make PithyURL!
 						</button>
 
