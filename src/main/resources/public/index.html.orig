@@ -61,10 +61,17 @@
 										placeholder="Insert here your long URL." ng-model="lsurl.long"></textarea>
 								</div>
 
-						<button type="submit" class="btn btn-success btn-lg" >
-							<span   class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+<<<<<<< HEAD
+								<button type="submit" class="btn btn-success btn-lg">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									Make PithyURL!
 								</button>
+=======
+						<button type="submit" class="btn btn-success btn-lg" >
+							<span   class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							Make PithyURL!
+						</button>
+>>>>>>> cdc7406a0f56874370a5f015e6e973ab8e7ea73f
 
 							</form>
 						</div>

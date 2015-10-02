@@ -47,12 +47,16 @@ a:hover{
 	text-align: center;
 }
 
+<<<<<<< HEAD
+#footer {
+=======
 #js-navbar-collapse  a{
 	position: absolute; 
 	top: 50px;
 }
 
-#footer {
+#cookiePolicy {
+>>>>>>> cdc7406a0f56874370a5f015e6e973ab8e7ea73f
 	position: absolute;
 	
 	height: 120px;

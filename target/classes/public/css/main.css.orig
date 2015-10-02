@@ -45,11 +45,7 @@ a:hover{
 	resize: none;
 	font-size: 230%;
 	text-align: center;
-}
-
-#js-navbar-collapse  a{
-	position: absolute; 
-	top: 50px;
+<<<<<<< HEAD
 }
 
 #footer {
@@ -60,6 +56,21 @@ a:hover{
 	font-size: 23px;
 	min-width: 100%;
 
+=======
+}
+
+#js-navbar-collapse  a{
+	position: absolute; 
+	top: 50px;
+}
+
+#cookiePolicy {
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	bottom: 0px;
+	font-size: 23px;
+>>>>>>> cdc7406a0f56874370a5f015e6e973ab8e7ea73f
 }
 
 #visitsPerDay, #visitsPerCountry {
@@ -104,7 +115,11 @@ canvas {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 	.container {
+<<<<<<< HEAD
 		max-width: 1080px;
+=======
+		max-width: 730px;
+>>>>>>> cdc7406a0f56874370a5f015e6e973ab8e7ea73f
 	}
 
 	/* Remove the padding we set earlier */

@@ -4,6 +4,41 @@
 	padding: 10px;
 }
 
+.btn {
+	background-color:orange ; 
+	border-color:orange;
+	
+}
+.btn:hover{
+	background:orange;
+	border:orange
+	
+}
+
+.btn:onclick{
+	background:orange;
+	border:orange
+}
+
+a:hover{
+	text-decoration:none;
+	color:orange;
+}
+
+.navbar-header{
+	
+	display: flex;
+    height: 90px;
+}
+
+.collapse navbar-collapse{
+	
+	position:absolute;
+    margin-top: 40px; 
+}
+
+
+
 .alert {
 	width: 650px;
 	height: 120px;
@@ -12,7 +47,12 @@
 	text-align: center;
 }
 
-#footer {
+#js-navbar-collapse  a{
+	position: absolute; 
+	top: 50px;
+}
+
+#footer{
 	position: absolute;
 	
 	height: 120px;
