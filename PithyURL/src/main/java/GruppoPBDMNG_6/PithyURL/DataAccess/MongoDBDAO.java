@@ -17,20 +17,19 @@ import com.google.gson.Gson;
 import com.mongodb.*;
 import com.mongodb.util.JSON;
  
-public class DAO implements IDAO{
+public class MongoDBDAO implements IDAO{
  
     @SuppressWarnings("unused")
 	private final DB db;
     private final DBCollection collection;
     private  String  duplicato = "Duplicate";
    
-    public DAO(DB db) {
+    public MongoDBDAO(DB db) {
         this.db = db;
         this.collection = db.getCollection("lsurl");
         ShortLinkGenerator.db = this; 
+        initilizeDB();
     }
- 
-    //Implementazione IDAO
     
     public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException,ShortUrlDuplicatedException{
         LsUrlClient url = new Gson().fromJson(body, LsUrlClient.class);
@@ -152,8 +151,6 @@ public class DAO implements IDAO{
 
     }
     
-    //Implementazione IDAOChecker
-    
 	public LsUrlServer checkLongUrl(String longUrl) {
 
 		LsUrlServer url = new LsUrlServer(
@@ -163,16 +160,39 @@ public class DAO implements IDAO{
 
 	}
 
-	public boolean checkLinkGen(String linkgen) {
+	public boolean checkLinkGen(String shortUrl) {
 		boolean duplicatedLink = false;
 		LsUrlServer url = new LsUrlServer(
-				(BasicDBObject) collection.findOne(new BasicDBObject("short", linkgen)));
+				(BasicDBObject) collection.findOne(new BasicDBObject("short", shortUrl)));
 		if (url.getShortUrl() != null) {
 			duplicatedLink = true;
 		}
 
 		return duplicatedLink;
 
+	}
+	
+	private void initilizeDB(){
+		
+		if(!checkLinkGen("test")){
+			try {
+				System.out.println("\nW - Insrimento URL di test");
+				createNewLsUrl("{'long':'test','custom':true,'short':'test'}");
+				collection.update((DBObject) JSON.parse("{'short':'test'}")
+						,(DBObject) JSON.parse("{ $push: { countries: { $each: [{'name' : 'RU','visits' : 1},"
+						+" {'name' : 'A2','visits' : 120},{'name' : 'US','visits' : 120},{'name' : 'IT','visits' : 500},{'name' : 'GB','visits' : 700},"
+						+ "{'name' : 'CH','visits' : 1300},{'name' : 'RS','visits' : 6000},{'name' : 'AT','visits' : 12000},{'name' : 'CA','visits' : 111000},"
+						+ "{'name' : 'BE','visits' : 1111000},{'name' : 'GH','visits' : 2111000},{'name' : 'MX','visits' : 5111000},"
+						+ "{'name' : 'NaN','visits' : 2}]}}}"));
+				collection.update((DBObject) JSON.parse("{'short':'test'}")
+						,(DBObject) JSON.parse("{'$set':{'tot_visits': 7567523, 'unique_visits' :  5456234}}"));
+				System.out.println();
+			} catch (BadURLFormatException | ShortUrlDuplicatedException | UndesirableWordException e) {
+				//Sicuramente non eseguito
+			}
+
+		}
+		
 	}
    
     

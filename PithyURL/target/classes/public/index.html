@@ -7,7 +7,7 @@
 	      href="./images/logo.png">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="./libs/bootstrap-3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./libs/js/bootstrap-3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/main.css">
 	<link rel="stylesheet" href="./css/mapael.css">
 </head>
@@ -120,7 +120,16 @@
 						<div id="success" class="alert center alert-success fade in"
 							ng-hide="error" ng-cloak>
 							<strong>Success!</strong> Here's your PithyURL :
-							{{"http://"+hostname+createdUrl.short}}
+							<div class="input-group input-group-lg">
+							<p id="text-to-copy">{{"http://"+hostname+createdUrl.short}}</p>
+								<button clipboard text="textToCopy" ng-click="saveShort()" on-copied="success()" on-error="fail(err)" 
+							class="btn btn-primary btn-lg" type="submit">
+									<span class="glyphicon glyphicon-copy glyphicon-align-right"
+										aria-hidden="true"></span> Copy to Clipboard
+								</button>
+							</span>
+						</div>
+ 
 						</div>
 
 						<div id="error" class="alert center alert-danger fade in"
@@ -140,11 +149,11 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
 						<div class="input-group input-group-lg">
-							<span class="input-group-addon">{{"http://"+hostname}}</span> <input
+							<input
 								type="text" ng-model="lsurlForStats.short" class="form-control"
 								placeholder="Insert your short URL here."> <span
 								class="input-group-btn">
-								<button class="btn btn-default btn-lg" type="submit">
+								<button class="btn btn-primary btn-lg" type="submit">
 									<span class="glyphicon glyphicon-align-right"
 										aria-hidden="true"></span> Inspect!
 								</button>
@@ -157,7 +166,7 @@
 
 			<div id="stats" ng-show="stats">
 
-				<h2 align="center">General</h2>
+				<h2 align="center">General infos</h2>
 				<br />
 
 				<div class="row">
@@ -259,7 +268,7 @@
 									<tr>
 										<th>Tag</th>
 										<th>Name</th>
-										<th>Clicks</th>
+										<th colspan="2">Clicks</th>
 									</tr>
 								</thead>
 								<tbody id="worldStatsContent">
@@ -312,7 +321,7 @@
 
 	<script type="text/javascript" src="./libs/js/jquery.min.js"></script>
 	<script type="text/javascript" src="./libs/js/jquery.js"></script>
-	<script type="text/javascript" src="./libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./libs/js/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 	
 	<script type="text/javascript" src="./libs/js/angular/angular.js"></script>
 	<script type="text/javascript" src="./libs/js/angular/angular-route.js"></script>
@@ -320,6 +329,7 @@
 	<script type="text/javascript" src="./libs/js/angular/angular-sanitize.js"></script>
 	<script type="text/javascript" src="./libs/js/angular/angular-resource.js"></script>
 	<script type="text/javascript" src="./libs/js/angular/angular-animate.js"></script>
+	<script type="text/javascript" src="./libs/js/angular/angular-clipboard.js"></script>
 	<script type="text/javascript" src="./libs/js/angular/Chart.min.js"></script>
 	
 	<script type="text/javascript" src="./scripts/app.js"></script>
@@ -328,9 +338,9 @@
 	<script type="text/javascript" src="./scripts/controllers/stats.js"></script>
 	<script type="text/javascript" src="./scripts/controllers/cookies.js"></script>
 	
-	<script	type="text/javascript" src="./libs/Mapael-1.1.0/js/raphael-min.js"	charset="utf-8"></script>
-	<script type="text/javascript" src="./libs/Mapael-1.1.0/js/jquery.mapael.js" charset="utf-8"></script>
-	<script type="text/javascript" src="./libs/Mapael-1.1.0/js/maps/world_countries.js" charset="utf-8"></script>
+	<script	type="text/javascript" src="./libs/js/Mapael-1.1.0/js/raphael-min.js"	charset="utf-8"></script>
+	<script type="text/javascript" src="./libs/js/Mapael-1.1.0/js/jquery.mapael.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./libs/js/Mapael-1.1.0/js/maps/world_countries.js" charset="utf-8"></script>
 	
 </body>
 </html>

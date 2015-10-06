@@ -10,6 +10,8 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
     $rootScope.error = false;
     
     $rootScope.errorS = false;
+    
+    $scope.textToCopy = 'I can copy by clicking!';
 
 	$scope.createLsUrl = function() {
 		console.log("ciao");
@@ -78,5 +80,17 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 	    $rootScope.errorS = false;
 	    $scope.lsurl.short = null;
 	}
+	 
+    $scope.success = function () {
+        console.log('Copied!');
+    };
+
+    $scope.fail = function (err) {
+        console.error('Error!', err);
+    };
+    
+    $scope.saveShort = function () {
+    	$scope.textToCopy = $("#text-to-copy").text();
+    };
 
 });

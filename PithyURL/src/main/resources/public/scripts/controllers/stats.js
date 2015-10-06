@@ -17,14 +17,15 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 		if ($scope.lsurlForStats.short == "" || $scope.lsurlForStats.short == null) {
 			return; //Campo non avvalorato
 		} else {
+			$scope.fixShort($scope.lsurlForStats.short);
 			$http.post('/api/v1/inspectUrl', $scope.lsurlForStats).success(function(data) {
 				$scope.lsurl.longUrl = data.long;
 				$scope.lsurl.shortUrl = data.short;
-				$scope.lsurl.totVisits = data.tot_visits;
-				$scope.lsurl.uniqueVisits = data.unique_visits;
+				$scope.lsurl.totVisits = $scope.parseVisits(data.tot_visits.toString());
+				$scope.lsurl.uniqueVisits = $scope.parseVisits(data.unique_visits.toString());
 				$scope.lsurl.creationDate = data.create_date;
 				$scope.lsurl.coutries = data.countries;
-				$scope.genWorld();
+				$scope.genWorld(data.tot_visits);
 				$scope.stats = true;
 			}).error(function(data, status) {
 				if(status == 501){
@@ -35,7 +36,7 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 		}
 	}
 	
-	$scope.genWorld = function() {
+	$scope.genWorld = function(totVisits) {
 		
 		//costruzione nuova mappa
 		
@@ -67,13 +68,15 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 				
 			}
 			
+			var perc = ((visits*100)/totVisits).toFixed(2);
+			
 			if(stateAcronyms[$scope.lsurl.coutries[i].name] != undefined){
 				name = stateAcronyms[$scope.lsurl.coutries[i].name];
-				infos += '<tr><td>'+acronym+'</th><td>'+name+'</th><td>'+visits+'</td></tr>';
+				infos += '<tr><td>'+acronym+'</th><td>'+name+'</th><td>'+visits+'</td><td>'+perc+'%</td></tr>';
 			}else{
 				$scope.unshowableCountries = true;
 				name = stateAcronymsServer[$scope.lsurl.coutries[i].name];
-				infos += '<tr><td><u>'+acronym+'</u></td><td><u>'+name+'</u></th><td><u>'+visits+'</u></td></tr>';
+				infos += '<tr><td><u>'+acronym+'</u></td><td><u>'+name+'</u></th><td><u>'+visits+'</u></td><td><u>'+perc+'%</u></td></tr>';
 			}
 			
 			if(i == ($scope.lsurl.coutries.length - 1)){
@@ -99,7 +102,7 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 		$("#worldStatsContent").html(infos);
 		
 		if($("#worldStatsContent tr").length == 0){
-			$("#worldStatsContent").html('<tr><td id="emptyTable" colspan="3">Still no clicks</td>');
+			$("#worldStatsContent").html('<tr><td id="emptyTable" colspan="4">Still no clicks</td>');
 		}
 		
 	}
@@ -117,6 +120,32 @@ app.controller('StatsCtrl', function($scope, $rootScope, $http, $location) {
 			$scope.legendBtn = "Hide Legend";
 		}else{
 			$scope.legendBtn = "Show Legend";
+		}
+	}
+	
+	$scope.parseVisits = function(visits) {
+		
+		var visitsRev = visits.split('').reverse().join('');
+		var visitsSplit = visitsRev.match(/.{1,3}/g);
+		var visitsParsedRev ="";
+		for(var i = 0; i < visitsSplit.length; i++){
+			visitsParsedRev += visitsSplit[i]+".";
+		}
+		visitsParsedRev = visitsParsedRev.substring(0, visitsParsedRev.length - 1);
+		
+		return visitsParsedRev.split('').reverse().join('');
+	}
+	
+	$scope.fixShort = function(shortURL) {
+		var proxyHostLength = ("http://"+$scope.hostname).length;
+		var hostLength = $scope.hostname.length;
+		
+		if(shortURL.indexOf("http://"+$scope.hostname) > -1){
+			$scope.lsurlForStats.short = shortURL.substring(proxyHostLength);
+		} else if(shortURL.indexOf($scope.hostname) > -1){
+			$scope.lsurlForStats.short = shortURL.substring(hostLength);
+		} else {
+			$scope.lsurlForStats.short = shortURL;
 		}
 	}
 	
