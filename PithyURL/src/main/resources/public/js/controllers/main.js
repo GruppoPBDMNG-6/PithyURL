@@ -53,6 +53,8 @@ app.controller('CreateCtrl', function ($scope, $rootScope, $http, $location) {
 				$scope.textError = "Please insert a real URL.";
 			}else if (status == 503){
 				$scope.textError = "Short URL already exists!";
+			}else if (status == 504){
+				$scope.textError = "Short URL must have at least 32 characters!";
 			}
 			$rootScope.response = true;
 			$rootScope.error = true;})

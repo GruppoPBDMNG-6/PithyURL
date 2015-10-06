@@ -84,6 +84,10 @@ public class Resource {
 					System.out.println(e.getMessage());
 					response.status(503);
 					url = null;
+				}catch(ShortURLMaxLenghtReachedException e){
+					System.out.println(e.getMessage());
+					response.status(504);
+					url = null;
 				}
             System.out.println("");
             return url;
