@@ -20,6 +20,11 @@
 			<version>2.0.0</version>
 		</dependency>
 		<dependency>
+  		  <groupId>junit</groupId>
+		  <artifactId>junit</artifactId>
+		  <version>4.12</version>
+		</dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.5</version>
@@ -30,25 +35,42 @@
 			<version>2.11.3</version>
 		</dependency>
 		<dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpclient</artifactId>
+		  <version>4.5.1</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 		</dependency>
 		<dependency>
-		<groupId>com.maxmind.geoip2</groupId>
-		<artifactId>geoip2</artifactId>
-		<version>2.3.1</version>
-		<scope>system</scope>
-		<systemPath>${project.basedir}/src/main/java/GruppoPBDMNG_6/PithyURL/libs/GeoIP/geoip2-2.3.1.jar</systemPath>
-		</dependency>
-	     <dependency>
 	        <groupId>com.maxmind.geoip2</groupId>
 	        <artifactId>geoip2</artifactId>
 	        <version>2.0.0</version>
 	     </dependency>
+		<dependency>
+            <groupId>com.maxmind.db</groupId>
+            <artifactId>maxmind-db</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>
+
+			  <plugin>
+			    <artifactId>maven-clean-plugin</artifactId>
+			    <version>2.4.1</version>
+			    <executions>
+			      <execution>
+			        <id>auto-clean</id>
+			        <phase>install</phase>
+			        <goals>
+			          <goal>clean</goal>
+			        </goals>
+			      </execution>
+			    </executions>
+			  </plugin>
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
