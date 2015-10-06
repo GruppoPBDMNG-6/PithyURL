@@ -39,7 +39,7 @@ public class ShortLinkGenerator {
 					char c = chars[random.nextInt(chars.length)];
 					output += c;
 				}
-				db.checkLinkGen(output);
+				check = db.checkLinkGen(output);
 			}
 		}
 		return output;
