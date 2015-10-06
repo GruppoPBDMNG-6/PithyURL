@@ -1,9 +1,12 @@
-package GruppoPBDMNG_6.PithyURL.Test;
+package GruppoPBDMNG_6.PithyURL.Test.Util;
 
 import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import GruppoPBDMNG_6.PithyURL.DataAccess.MongoDBDAO;
+import GruppoPBDMNG_6.PithyURL.SparkServer.Bootstrap;
 import GruppoPBDMNG_6.PithyURL.Util.ShortLinkGenerator;
 
 public class ShortLinkGeneratorTest {
@@ -14,6 +17,7 @@ public class ShortLinkGeneratorTest {
 	@Before
 	public void setUp() throws Exception {
 		test = new ShortLinkGenerator();
+		ShortLinkGenerator.db = new MongoDBDAO(Bootstrap.mongo());
 	}
 
 	@After
@@ -27,4 +31,5 @@ public class ShortLinkGeneratorTest {
 			assertTrue("Caso di test " + i, test.generaLink().matches(TEST_REGEX));
 		}
 	}
+	
 }

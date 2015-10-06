@@ -20,7 +20,7 @@ public class Bootstrap {
         new Resource((IDAO) new MongoDBDAO(mongo()));
     }
  
-    private static DB mongo() throws Exception {
+    public static DB mongo() throws Exception {
 
          MongoClient mongoClient = new MongoClient("localhost", 27017);
          return mongoClient.getDB("pithy_url");
