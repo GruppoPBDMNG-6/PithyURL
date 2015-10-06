@@ -8,6 +8,11 @@ import java.util.Scanner;
 
 public class WordChecker {
 	
+	/**
+	 * Verifica se una parola è desiderabile o no.
+	 * @param s stringa in input.
+	 * @return true se la stringa non è desiderabile, false altrimenti.
+	 */
 	public boolean isUndesirable(String s){
 		boolean result = false;
 		File f = new File("src/main/java/GruppoPBDMNG_6/PithyURL/Util/Check/languages.txt");
@@ -24,6 +29,12 @@ public class WordChecker {
 		return result;
 	}
 
+	/**
+	 * Verifica se una parola è presente in un file.
+	 * @param path percorso del file di testo da analizzare.
+	 * @param s stringa di cui verificare la presenza.
+	 * @return true se la parola è stata trovata, false altrimenti.
+	 */
 	private boolean searchWordInFile(String path, String s){
 		File f = new File(path);
 		boolean result = false;
