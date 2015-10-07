@@ -1,4 +1,4 @@
-package GruppoPBDMNG_6.PithyURL.Test.Util;
+package GruppoPBDMNG_6.PithyURL.Util;
 
 import static org.junit.Assert.*;
 

@@ -1,19 +1,14 @@
-package GruppoPBDMNG_6.PithyURL.Test.Util;
+package GruppoPBDMNG_6.PithyURL.Util;
 
 import static org.junit.Assert.assertTrue;
 
 import GruppoPBDMNG_6.PithyURL.Util.LongUrlValidator;
-import GruppoPBDMNG_6.PithyURL.Util.ShortUrlValidator;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class LongUrlValidatorTest {
 
-
-
-	
 	private String[] s = {"http://www.prova1.com", "www.prova2.com", "prova3.com", "prova4", " "};
 	private boolean[] result = {true, true, true, true, false};
 	LongUrlValidator [] test = new LongUrlValidator[s.length];
@@ -37,7 +32,6 @@ public class LongUrlValidatorTest {
 		test = null;
 	}
 
-	@SuppressWarnings("static-access")
 	@Test
 	public void testValidate() throws Exception{
 		for(int i = 0; i<s.length; i++){
