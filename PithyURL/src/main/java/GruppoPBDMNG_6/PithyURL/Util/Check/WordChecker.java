@@ -15,12 +15,12 @@ public class WordChecker {
 	 */
 	public boolean isUndesirable(String s){
 		boolean result = false;
-		File f = new File("src/main/java/GruppoPBDMNG_6/PithyURL/Util/Check/languages.txt");
+		File f = new File(System.getProperty("user.dir")+"/src/main/java/GruppoPBDMNG_6/PithyURL/Util/Check/languages.txt");
 		Scanner sc = null;
 		try {
 			for(sc = new Scanner(f); sc.hasNext() && !result;){
 				String line = sc.nextLine();
-				result = searchWordInFile("src/main/java/GruppoPBDMNG_6/PithyURL/Util/Check/WordList/" + line, s);
+				result = searchWordInFile(System.getProperty("user.dir")+"/src/main/java/GruppoPBDMNG_6/PithyURL/Util/Check/WordList/" + line, s);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
