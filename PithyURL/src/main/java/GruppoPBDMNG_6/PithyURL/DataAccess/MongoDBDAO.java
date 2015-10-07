@@ -179,7 +179,7 @@ public class MongoDBDAO implements IDAO{
 		if(!checkLinkGen("test")){
 			try {
 				System.out.println("\nW - Insrimento URL di test");
-				createNewLsUrl("{'long':'test','custom':true,'short':'test','custom':'true'}");
+				createNewLsUrl("{'long':'http://www.google.it','custom':true,'short':'test','custom':'true'}");
 				collection.update((DBObject) JSON.parse("{'short':'test'}")
 						,(DBObject) JSON.parse("{ $push: { countries: { $each: [{'name' : 'RU','visits' : 1},"
 						+" {'name' : 'A2','visits' : 120},{'name' : 'US','visits' : 120},{'name' : 'IT','visits' : 500},{'name' : 'GB','visits' : 700},"
