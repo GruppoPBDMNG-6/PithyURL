@@ -60,7 +60,7 @@ public class MongoDBDAO implements IDAO{
             	
             	if(url.getShortUrl() == duplicato) throw new ShortUrlDuplicatedException("W - Short url esistente : " + url.getShortUrl());
             	
-            	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
+            	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl).append("custom", true)
              			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()).append("countries", new BasicDBList()));
         		
         	}else{
@@ -74,7 +74,7 @@ public class MongoDBDAO implements IDAO{
                 if(tempurl.getLongUrl() != null ){
                 	url.setShortUrl(tempurl.getShortUrl());
                 } else {
-                	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl)
+                	collection.insert(new BasicDBObject("long", validator.getFixedUrl()).append("short", shortUrl).append("custom", false)
                  			.append("tot_visits", 0).append("unique_visits", 0).append("create_date", new Date()).append("countries", new BasicDBList()));
                 }
                 
@@ -154,8 +154,10 @@ public class MongoDBDAO implements IDAO{
 	public LsUrlServer checkLongUrl(String longUrl) {
 
 		LsUrlServer url = new LsUrlServer(
-				(BasicDBObject) collection.findOne(new BasicDBObject("long", longUrl)));
-		System.out.println("W - Long url esistente");
+				(BasicDBObject) collection.findOne((DBObject) JSON.parse("{'custom':false,'long':'"+longUrl+"'}")));
+		if(url.getShortUrl() != null){
+			System.out.println("W - Long url esistente");
+		}
 		return url;
 
 	}
@@ -177,7 +179,7 @@ public class MongoDBDAO implements IDAO{
 		if(!checkLinkGen("test")){
 			try {
 				System.out.println("\nW - Insrimento URL di test");
-				createNewLsUrl("{'long':'test','custom':true,'short':'test'}");
+				createNewLsUrl("{'long':'test','custom':true,'short':'test','custom':'true'}");
 				collection.update((DBObject) JSON.parse("{'short':'test'}")
 						,(DBObject) JSON.parse("{ $push: { countries: { $each: [{'name' : 'RU','visits' : 1},"
 						+" {'name' : 'A2','visits' : 120},{'name' : 'US','visits' : 120},{'name' : 'IT','visits' : 500},{'name' : 'GB','visits' : 700},"
