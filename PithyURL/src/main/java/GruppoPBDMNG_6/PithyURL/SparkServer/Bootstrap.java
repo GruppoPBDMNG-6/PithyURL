@@ -5,7 +5,7 @@ import GruppoPBDMNG_6.PithyURL.DataAccess.MongoDBDAO;
 
 import com.mongodb.*;
 
-import static spark.Spark.setIpAddress;
+//import static spark.Spark.setIpAddress;
 import static spark.Spark.setPort;
 import static spark.SparkBase.staticFileLocation;
  
