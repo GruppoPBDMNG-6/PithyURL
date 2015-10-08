@@ -2,19 +2,21 @@ package GruppoPBDMNG_6.PithyURL.Util;
 
 import static org.junit.Assert.*;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import spark.Spark;
 import static spark.Spark.*;
 import GruppoPBDMNG_6.PithyURL.Util.CookiesHandler;
 
+@Ignore
 public class CookiesHandlerTest {
 
 	//Attributi per creare un server di test
@@ -59,24 +61,27 @@ public class CookiesHandlerTest {
 		
 		for(int i = 0 ; i < shortsVisited.length; i++){
 			
-			httpPost("/"+shortsVisited[i]);
+			request("POST","/"+shortsVisited[i]);
 			assertEquals(currentOutput,outputsExpected[i]);
 			
-			httpPost("/util/getCookie");
+			request("POST","/util/getCookie");
 			assertEquals(currentCookieStatus,cookieStatusExpected[i]);
 			
 		}
 		
 	}
-	
-    private void httpPost(String relativePath) {
-        HttpPost request = new HttpPost(DEFAULT_HOST_URL + relativePath);
-        try {
-        	HttpResponse response = httpClient.execute(request);
-        	EntityUtils.consume(response.getEntity());
-        } catch (Exception e) {
-            fail(e.toString());
-        }
-    }
+    
+	private void request(String method, String path) {
+		try {
+			URL url = new URL(DEFAULT_HOST_URL + path);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod(method);
+			connection.setDoOutput(true);
+			connection.connect();
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail("Sending request failed: " + e.getMessage());
+		}
+	}
 
 }
