@@ -16,7 +16,6 @@ import spark.Spark;
 import static spark.Spark.*;
 import GruppoPBDMNG_6.PithyURL.Util.CookiesHandler;
 
-@Ignore
 public class CookiesHandlerTest {
 
 	//Attributi per creare un server di test
