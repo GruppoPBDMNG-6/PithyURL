@@ -1,15 +1,19 @@
 package GruppoPBDMNG_6.PithyURL.SparkServer;
  
 import java.io.IOException;
+
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.mongodb.util.JSON;
+
 import GruppoPBDMNG_6.PithyURL.DataAccess.IDAO;
 import GruppoPBDMNG_6.PithyURL.SparkServer.Entities.*;
 import GruppoPBDMNG_6.PithyURL.SparkServer.Exceptions.*;
 import GruppoPBDMNG_6.PithyURL.Util.CookiesHandler;
-import GruppoPBDMNG_6.PithyURL.Util.JsonTransformer;
+import GruppoPBDMNG_6.PithyURL.Util.JsonUtil.JsonTransformer;
 import GruppoPBDMNG_6.PithyURL.Util.GeoIPLocation.GeoLocationByIP;
 import static spark.Spark.*;
+import static GruppoPBDMNG_6.PithyURL.Util.JsonUtil.JsonUtil.*;
  
 public class Resource {
  
@@ -115,6 +119,15 @@ public class Resource {
         	
         }, new JsonTransformer());
         
+        //test
+        
+        post("/test/:short", (request, response) -> {
+        	return JSON.parse("{'currentOutput' : "+CookiesHandler.handleVisit(request,response)+"}");
+        }, json());
+        
+        post("/test/util/getCookie", (request, response) -> {
+        	return JSON.parse("{'currentCookieStatus' : '"+request.cookie("pithyurl_visited")+"'}");
+        }, json());
 
     }
  

@@ -1,10 +1,7 @@
-package GruppoPBDMNG_6.PithyURL.Util;
+package GruppoPBDMNG_6.PithyURL.Util.JsonUtil;
  
 import com.google.gson.Gson;
-import spark.Response;
 import spark.ResponseTransformer;
- 
-import java.util.HashMap;
  
 public class JsonTransformer implements ResponseTransformer {
  
@@ -16,3 +13,4 @@ public class JsonTransformer implements ResponseTransformer {
     }
  
 }
+
