@@ -18,7 +18,7 @@ import GruppoPBDMNG_6.PithyURL.Util.CookiesHandler;
 public class CookiesHandlerTest {
 
 	//Attributi per creare un server di test
-    private static final int PORT = 8082;
+    private static final int PORT = 8080;
     private static final String DEFAULT_HOST_URL = "http://127.0.0.1:"+PORT+"";
     private CloseableHttpClient httpClient;
     
