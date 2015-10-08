@@ -11,4 +11,5 @@
 [![GeoIp2](https://img.shields.io/badge/GeoIP-2-blue.svg?style=flat)](https://maxmind.com/en/geoip2-precision-country-service)
 [![Mapael](https://img.shields.io/badge/jQuery%20Mapael-1.1.0-blue.svg?style=flat)](http://www.vincentbroute.fr/mapael/)
 
-Per la guida all'istallazione in docker fare riferimento a https://github.com/GruppoPBDMNG-6/docker-PithyURL
+Per la guida all'istallazione in docker fare riferimento a : 
+<pre>https://github.com/GruppoPBDMNG-6/docker-PithyURL</pre>
