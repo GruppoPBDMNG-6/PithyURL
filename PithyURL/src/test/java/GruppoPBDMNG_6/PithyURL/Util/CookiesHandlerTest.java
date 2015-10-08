@@ -9,14 +9,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
 import com.google.gson.Gson;
+
 import spark.Spark;
 import spark.utils.IOUtils;
 import GruppoPBDMNG_6.PithyURL.SparkServer.Bootstrap;
 
+@Ignore
 public class CookiesHandlerTest {
 
 	//Attributi per creare un server di test
@@ -84,6 +89,7 @@ public class CookiesHandlerTest {
 		public Map<String,String> json() {
 			return new Gson().fromJson(body, HashMap.class);
 		}
+		
 	}
 
 }
