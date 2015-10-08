@@ -1,7 +1,5 @@
 package GruppoPBDMNG_6.PithyURL.Util.Check;
 
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
