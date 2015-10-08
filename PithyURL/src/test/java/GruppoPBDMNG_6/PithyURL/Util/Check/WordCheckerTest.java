@@ -41,7 +41,7 @@ public class WordCheckerTest {
 	@Test
 	public void testIsUndesiderable() {
 			for(int i = 0; i<Words.length; i++){
-				assertTrue("Caso di test " + i, test.isUndesirable(Words[i]) == result[i]);
+				assertTrue("Caso di test " + i, test.isBadWord(Words[i]) == result[i]);
 			}
 	}
 

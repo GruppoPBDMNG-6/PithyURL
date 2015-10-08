@@ -54,7 +54,7 @@ public class MongoDBDAO implements IDAO{
             	System.out.println("W - Short url : " + url.getShortUrl());
             	
             	WordChecker wc = new WordChecker();
-            	if(wc.isUndesirable(shortUrl) || !ShortUrlValidator.validate(url.getShortUrl())){
+            	if(wc.isBadWord(shortUrl) || !ShortUrlValidator.validate(url.getShortUrl())){
     				throw new UndesirableWordException("W - Parola non accettabile : " + url.getShortUrl());
             	} 
             	
