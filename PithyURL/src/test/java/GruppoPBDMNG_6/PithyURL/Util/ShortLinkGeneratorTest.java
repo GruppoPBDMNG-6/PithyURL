@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import spark.Spark;
 import GruppoPBDMNG_6.PithyURL.DataAccess.MongoDBDAO;
 import GruppoPBDMNG_6.PithyURL.SparkServer.Bootstrap;
 import GruppoPBDMNG_6.PithyURL.Util.ShortLinkGenerator;
@@ -23,6 +25,7 @@ public class ShortLinkGeneratorTest {
 	@After
 	public void tearDown() throws Exception {
 		test = null;
+		Spark.stop();
 	}
 
 	@Test
