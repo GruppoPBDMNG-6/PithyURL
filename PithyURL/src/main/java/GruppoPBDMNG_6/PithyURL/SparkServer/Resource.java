@@ -18,9 +18,11 @@ import static GruppoPBDMNG_6.PithyURL.Util.JsonUtil.JsonUtil.*;
 public class Resource {
  
     private final IDAO db;
+    private boolean test;
  
-    public Resource(IDAO db) {
+    public Resource(IDAO db, boolean test) {
         this.db = db;
+        this.test = test;
         setupEndpoints();
     }
     
@@ -119,16 +121,16 @@ public class Resource {
         	
         }, new JsonTransformer());
         
-        //test
-        
-        post("/test/:short", (request, response) -> {
-        	return JSON.parse("{'currentOutput' : "+CookiesHandler.handleVisit(request,response)+"}");
-        }, json());
-        
-        post("/test/util/getCookie", (request, response) -> {
-        	return JSON.parse("{'currentCookieStatus' : '"+request.cookie("pithyurl_visited")+"'}");
-        }, json());
-
+        //usati da CoockiesHandlerTest.java
+        if(test){
+	        post(API.TES_VISIT, (request, response) -> {
+	        	return JSON.parse("{'currentOutput' : "+CookiesHandler.handleVisit(request,response)+"}");
+	        }, json());
+	        
+	        post(API.TEST_GET_COOKIE, (request, response) -> {
+	        	return JSON.parse("{'currentCookieStatus' : '"+request.cookie("pithyurl_visited")+"'}");
+	        }, json());
+        }
     }
  
 }

@@ -17,7 +17,11 @@ public class Bootstrap {
         //setIpAddress(IP_ADDRESS);
         setPort(PORT);
         staticFileLocation("/public");
-        new Resource((IDAO) new MongoDBDAO(mongo()));
+        if(args == null){
+        	new Resource((IDAO) new MongoDBDAO(mongo()), false);
+        }else{
+        	new Resource((IDAO) new MongoDBDAO(mongo()), true);
+        }
     }
  
     public static DB mongo() throws Exception {

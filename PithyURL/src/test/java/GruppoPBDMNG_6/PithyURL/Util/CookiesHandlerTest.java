@@ -36,7 +36,8 @@ public class CookiesHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-    	Bootstrap.main(null);
+    	String[] test = {"test"};
+    	Bootstrap.main(test);
     	cookieManager = new CookieManager();
     	CookieHandler.setDefault(cookieManager);
     }

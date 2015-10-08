@@ -8,5 +8,7 @@ public class API {
 	public static final String NEW_URL = "/lsurl";
 	public static final String INSPECT_URL = "/inspectUrl";
 	public static final String PAGE_NOT_FOUND = "/404.html";
-	
+	//test api
+	public static final String TES_VISIT = "/test/:short";
+	public static final String TEST_GET_COOKIE = "/test/util/getCookie";
 }
