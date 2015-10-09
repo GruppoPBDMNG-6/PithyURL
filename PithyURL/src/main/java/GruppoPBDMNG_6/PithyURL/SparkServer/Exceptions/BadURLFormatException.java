@@ -1,5 +1,12 @@
 package GruppoPBDMNG_6.PithyURL.SparkServer.Exceptions;
 
+/** 
+*
+* Eccezione che indica che un long url nan ha un formato corretto.
+*
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class BadURLFormatException extends RuntimeException {
 	
 	/**

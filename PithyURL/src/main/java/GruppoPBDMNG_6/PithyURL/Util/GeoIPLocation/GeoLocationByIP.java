@@ -3,12 +3,18 @@ package GruppoPBDMNG_6.PithyURL.Util.GeoIPLocation;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CountryResponse;
 import com.maxmind.geoip2.record.Country;
 
+/**
+* 
+* Classe per la geolocalizzazione di un IP.
+* 
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class GeoLocationByIP {
 	
 	private File database;
@@ -21,8 +27,16 @@ public class GeoLocationByIP {
 		reader = new DatabaseReader.Builder(database).build();
 	}
 	
-	/*
-	 * Dato un IP, ritorna la sigla del paese di provenienza
+	/**
+	 * 
+	 * Recupera l'acronimo del paese associato ad un IP.
+	 * 
+	 * @param IP IP in formato stringa.
+	 * @return Acrnimo del paese.
+	 * 
+	 * @throws IOException Eccezione di tipo IO.
+	 * @throws GeoIp2Exception Eccezione di GeoIP2.
+	 * 
 	 */
 	public String getCountryFromIP(String IP) throws IOException, GeoIp2Exception{
 		CountryResponse response = reader.country(InetAddress.getByName(IP));

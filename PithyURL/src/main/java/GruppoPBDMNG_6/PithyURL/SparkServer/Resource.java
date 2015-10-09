@@ -1,11 +1,9 @@
 package GruppoPBDMNG_6.PithyURL.SparkServer;
  
 import java.io.IOException;
-
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.mongodb.util.JSON;
-
 import GruppoPBDMNG_6.PithyURL.DataAccess.IDAO;
 import GruppoPBDMNG_6.PithyURL.SparkServer.Entities.*;
 import GruppoPBDMNG_6.PithyURL.SparkServer.Exceptions.*;
@@ -14,7 +12,14 @@ import GruppoPBDMNG_6.PithyURL.Util.JsonUtil.JsonTransformer;
 import GruppoPBDMNG_6.PithyURL.Util.GeoIPLocation.GeoLocationByIP;
 import static spark.Spark.*;
 import static GruppoPBDMNG_6.PithyURL.Util.JsonUtil.JsonUtil.*;
- 
+
+/**
+* 
+* Classe che implementa la gestione delle richieste ricevute dal client.
+* 
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class Resource {
  
     private final IDAO db;
@@ -26,6 +31,14 @@ public class Resource {
         setupEndpoints();
     }
     
+    /**
+	 * 
+	 * Geolocalizza un IP tramite GeoIP2
+	 * 
+	 * @param ip IP in formato stringa.
+	 * @return Acronimo del paese relativo all'IP.
+	 * 
+	 */
     private String getGeoLocation(String ip){
     	
     	String location = "NaN";
@@ -41,6 +54,12 @@ public class Resource {
     	
     }
  
+    /**
+	 * 
+	 * Definizione delle operazioni da svolgere per ogni richiesta post, definita nella classe API,
+	 * che e' possibile ricevere da un client.
+	 * 
+	 */
     private void setupEndpoints() {
    
     	// eseguita all avvio

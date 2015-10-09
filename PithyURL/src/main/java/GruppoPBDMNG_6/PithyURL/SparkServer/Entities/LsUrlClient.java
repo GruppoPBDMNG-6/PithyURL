@@ -2,7 +2,15 @@ package GruppoPBDMNG_6.PithyURL.SparkServer.Entities;
  
 import GruppoPBDMNG_6.PithyURL.Util.ShortLinkGenerator;
 import com.google.gson.annotations.SerializedName;
- 
+
+/** 
+*
+* Classe utilizzata per il passaggio di informazioni riguardo
+* PithyUrl dal client al server.
+*
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class LsUrlClient {
     
     @SerializedName("short")
@@ -14,26 +22,14 @@ public class LsUrlClient {
     @SerializedName("custom")
     private boolean custom;
  
-    public LsUrlClient() {
-    	
-    }
+    public LsUrlClient(){}
     
-    public String getLongUrl() { 
-        return longUrl;
-    }
- 
-    public String getShortUrl() {
-    	
-        return shortUrl;
-    }
+    public String getLongUrl(){return longUrl;}
+    public String getShortUrl(){return shortUrl;}
 
-	public boolean isCustom() {
-		return custom;
-	}
+	public boolean isCustom(){return custom;}
 	
-	public void setShortUrl(String shortUrl){
-		this.shortUrl = shortUrl;
-	}
+	public void setShortUrl(String shortUrl){this.shortUrl = shortUrl;}
 	
 	public void generateShort(){
 		

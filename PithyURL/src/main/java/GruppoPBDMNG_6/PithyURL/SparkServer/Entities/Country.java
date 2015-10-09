@@ -1,5 +1,12 @@
 package GruppoPBDMNG_6.PithyURL.SparkServer.Entities;
 
+/** 
+*
+* Classe i cui oggetti sono istanze di LsUrlServer
+*
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class Country implements Comparable<Country>{
 	
 	private String name;

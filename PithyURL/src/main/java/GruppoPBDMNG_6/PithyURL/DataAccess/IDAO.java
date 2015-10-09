@@ -7,6 +7,11 @@ import GruppoPBDMNG_6.PithyURL.SparkServer.Exceptions.ShortUrlDuplicatedExceptio
 import GruppoPBDMNG_6.PithyURL.SparkServer.Exceptions.ShortUrlNotFoundException;
 import GruppoPBDMNG_6.PithyURL.SparkServer.Exceptions.UndesirableWordException;
 
+/**
+* 
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public interface IDAO {
 	public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException,ShortUrlDuplicatedException;
 	public LsUrlServer visitLsUrl(String shortUrl, boolean visitable, String location) throws ShortUrlNotFoundException;

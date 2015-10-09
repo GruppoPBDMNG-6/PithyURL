@@ -3,14 +3,25 @@ package GruppoPBDMNG_6.PithyURL.SparkServer.Entities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+
 import org.bson.types.ObjectId;
+
 import com.google.gson.annotations.SerializedName;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 
+/** Description of MyClass 
+*
+* Classe utilizzata per il passaggio di informazioni riguardo
+* PithyUrl dal server al client.
+* 
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class LsUrlServer {
 	
-	 	private String id;
+	 	@SuppressWarnings("unused")
+		private String id;
 	    
 	    @SerializedName("short")
 	    private String shortUrl;

@@ -4,6 +4,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+* 
+* Classe per la verifica che un URL sia nel formato standard (Che effettivamente sia un URL).
+*
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class LongUrlValidator {
 	
 	private String url;
@@ -15,6 +22,13 @@ public class LongUrlValidator {
 		
 	}
 	
+	/**
+	 * 
+	 * Valida un URL.
+	 * 
+	 * @return Booleano, true se l'URL e' valido, false altrimenti.
+	 * 
+	 */
 	public boolean validate(){
 		
 		boolean isValid = false;
@@ -29,6 +43,14 @@ public class LongUrlValidator {
 		
 	}
 	
+	/**
+	 * 
+	 * Completa con il proxy un URL se manca.
+	 * 
+	 * @param url Url da aggiustare.
+	 * @return Url aggiustato.
+	 * 
+	 */
 	private String fix(String url){
 		
 		String fixedURL = url;
@@ -47,10 +69,6 @@ public class LongUrlValidator {
 		
 	}
 	
-	public String getFixedUrl(){
-		
-		return this.url;
-		
-	}
+	public String getFixedUrl(){return this.url;}
 
 }

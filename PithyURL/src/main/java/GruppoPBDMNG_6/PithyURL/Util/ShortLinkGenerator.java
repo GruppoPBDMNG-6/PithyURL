@@ -3,6 +3,13 @@ package GruppoPBDMNG_6.PithyURL.Util;
 import java.util.Random;
 import GruppoPBDMNG_6.PithyURL.DataAccess.IDAO;
 
+/**
+*
+* Classe per la generazione di uno short url casuale.
+*
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class ShortLinkGenerator {
 
 	private static final String _CHAR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -22,6 +29,13 @@ public class ShortLinkGenerator {
 		this.customLink = customLink;
 	}
 
+	/** 
+	 * 
+	 * Genera una stringa di n caratteri casualmente.
+	 * 
+	 * @return Stringa di n caratteri casuali.
+	 * 
+	 */
 	public String generaLink() {
 		boolean check = true;
 		String output = "";

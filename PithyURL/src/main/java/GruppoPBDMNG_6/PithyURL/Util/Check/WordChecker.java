@@ -7,6 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+*
+* Cerca una parola tra quelle non permesse.
+*
+* @author Gruppo_PBDMNG_6
+* 
+*/
 public class WordChecker {
 	
 	private List<String> languageList = new ArrayList<String>();
@@ -30,6 +37,14 @@ public class WordChecker {
 			}    
 	}
 	
+	/**
+	 * 
+	 * Verifica che una parola sia o meno tra quelle non permesse.
+	 * 
+	 * @param word Parola da analizzare.
+	 * @return Booleano, true se la parola è vietata, flase altrimenti.
+	 * 
+	 */
 	public boolean isBadWord(String word){
 		boolean dirty = false;
 		
