@@ -103,7 +103,7 @@ public class MongoDBDAO implements IDAO{
     		System.out.println("R - Short url non trovata");
     		throw new ShortUrlNotFoundException();
     	} else {
-    		updateVisits(shortUrl, tot_visits, unique_visits, location , visitable);
+    		updateVisits(shortUrl, tot_visits, unique_visits, location);
     		url.setTotVisits(tot_visits);
     		url.setUniqueVisits(unique_visits);
     		System.out.println("R - Creation date : " + url.getCreateDate());
@@ -133,7 +133,7 @@ public class MongoDBDAO implements IDAO{
     	
     }
     
-    public void updateVisits(String shortUrl, int totVisits, int uniqueVisits, String location, boolean visitable) {
+    private void updateVisits(String shortUrl, int totVisits, int uniqueVisits, String location) {
     	
     	LsUrlServer urlCeckLocation = new LsUrlServer(
     			(BasicDBObject) collection.findOne((DBObject) JSON.parse("{'short':'"+shortUrl+"', 'countries.name': '"+location+"'}")));
@@ -151,7 +151,7 @@ public class MongoDBDAO implements IDAO{
 
     }
     
-	public LsUrlServer checkLongUrl(String longUrl) {
+	private LsUrlServer checkLongUrl(String longUrl) {
 
 		LsUrlServer url = new LsUrlServer(
 				(BasicDBObject) collection.findOne((DBObject) JSON.parse("{'custom':false,'long':'"+longUrl+"'}")));

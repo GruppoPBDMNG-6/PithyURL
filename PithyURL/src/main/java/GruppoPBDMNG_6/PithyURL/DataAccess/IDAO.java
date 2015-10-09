@@ -11,7 +11,5 @@ public interface IDAO {
 	public LsUrlClient createNewLsUrl(String body) throws BadURLFormatException, UndesirableWordException,ShortUrlDuplicatedException;
 	public LsUrlServer visitLsUrl(String shortUrl, boolean visitable, String location) throws ShortUrlNotFoundException;
 	public LsUrlServer getLsUrl(String shortUrl) throws ShortUrlNotFoundException;
-	public void updateVisits(String shortUrl, int totVisits, int uniqueVisits, String location, boolean visitable);
-	public LsUrlServer checkLongUrl(String longUrl);
 	public boolean checkLinkGen(String linkgen);
 }

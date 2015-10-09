@@ -123,6 +123,7 @@ public class Resource {
         
         //usati da CoockiesHandlerTest.java
         if(test){
+        	
 	        post(API.TES_VISIT, (request, response) -> {
 	        	return JSON.parse("{'currentOutput' : "+CookiesHandler.handleVisit(request,response)+"}");
 	        }, json());
@@ -130,7 +131,9 @@ public class Resource {
 	        post(API.TEST_GET_COOKIE, (request, response) -> {
 	        	return JSON.parse("{'currentCookieStatus' : '"+request.cookie("pithyurl_visited")+"'}");
 	        }, json());
+	        
         }
+        
     }
  
 }
