@@ -48,7 +48,8 @@ public class Resource {
                 -> {
 
                 	if (!request.params(":short").equals("favicon.ico")){
-                		
+                        
+                        System.out.println("");
                 		System.out.println("R - Richiesta fatta da : "+ request.ip());
                 		
                 		try{
@@ -74,6 +75,7 @@ public class Resource {
         
         //inserire operazioni da fare su richiesta del client post o get
         post(API.API_CONTEXT + API.NEW_URL, "application/json", (request, response) -> {
+        	System.out.println("");
         	System.out.println("W - Richiesta fatta da : "+ request.ip());
         	LsUrlClient url;
         	try {
@@ -101,7 +103,7 @@ public class Resource {
         
         post(API.API_CONTEXT + API.INSPECT_URL, "application/json", (request, response) -> {
         	
-        		
+        	System.out.println("");	
     		System.out.println("RS - Richiesta fatta da : "+ request.ip());
     		LsUrlServer sUrl ;
     		
