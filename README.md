@@ -7,7 +7,7 @@
 [![AngularJS](https://img.shields.io/badge/AngularJS-1.3.0-red.svg?style=flat)](https://angular.io/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-3.3.5-6f5499.svg?style=flat)](http://getbootstrap.com/)
 
-######Funzionalità : 
+######Servizi : 
 [![GeoIp2](https://img.shields.io/badge/GeoIP-2-blue.svg?style=flat)](https://maxmind.com/en/geoip2-precision-country-service)
 [![Mapael](https://img.shields.io/badge/jQuery%20Mapael-1.1.0-blue.svg?style=flat)](http://www.vincentbroute.fr/mapael/)
 
